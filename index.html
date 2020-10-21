@@ -3,7 +3,7 @@
 		<style>
 			#time {
 				position: fixed;
-				top: 150px;
+				top: 100px;
 				left: 50%;
 
 				width: 200px;
@@ -16,8 +16,49 @@
 		</style>
 	</head>
 	<body>
-		<div id="time">sdf</div>
+		<canvas id="canvas"></canvas>
+		<div id="time"></div>
+		<!-- <img src="" id="img"> -->
 		<script>
+			function prepare_canvas(count_days) {
+				var canvas = document.getElementById("canvas");
+				canvas.width  = document.body.clientWidth/2;
+				canvas.height = canvas.width*0.6319498825371965;
+				console.log(canvas.width, canvas.height);
+				canvas.style.position = "fixed";
+				canvas.style.top = "200px";
+				canvas.style.left = "50%";
+				canvas.style.marginLeft = ""+-1*canvas.width/2;
+
+				var context = canvas.getContext("2d"),
+					img		= new Image();
+
+				img.onload = function() {
+					img.width = canvas.width;
+					img.height = canvas.height;
+					// context.drawImage(img, 0, 0, 250, 250, 100, 0, 250, 250);
+					console.log(this.width, this.height);
+
+					var count_w = canvas.width / 19,
+						count_h = canvas.height/ 19;
+					var count_t = 0;
+
+					for (var j=0; j<19; j++) {
+						for (var i=0; i<19; i++) {
+							count_t += 1;
+							if (count_t > count_days) break;
+							context.drawImage(img, i*count_w, j*count_h, count_w, count_h, i*count_w, j*count_h, count_w, count_h);
+						}
+						if (count_t > count_days) break;
+					}
+
+				}
+
+				img.src = "IvA4hqMWxk8.jpg";
+				// document.getElementById("img").src = img.src;
+
+			}
+
 			function what_days(ms_, date_) {
 				var count = 0;
 				for (var i=0; i<date_.getMonth(); i++) {
@@ -42,8 +83,11 @@
 				d.innerHTML = t;
 			}
 			else {
-				d.innerHTML = what_days(ms, end) - what_days(ms, today);
+				 t = what_days(ms, end) - what_days(ms, today);
+				 d.innerHTML = t;
 			}
+
+			prepare_canvas(365-t);
 		</script>
 	</body>
 </html>
