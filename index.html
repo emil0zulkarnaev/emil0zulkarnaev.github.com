@@ -28,18 +28,18 @@
 
 			var d 	  = document.getElementById("time"),
 				start = new Date(2020, 9, 20),
-				today = new Date(2021,0, 1),
+				today = new Date(),
 				end   = new Date(2021, 9, 20),
 				ms    = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 			var t = 0;
 			if (today.getFullYear() == 2020)
 			{
-				t += 31 - start.getDate() + 1;
-				for (var i=10; i<12; i++)
+				t += ms[today.getMonth()] - today.getDate();
+				for (var i=today.getMonth()+1; i<12; i++)
 					t += ms[i];
 				t += what_days(ms, end);
-				d.innerHTML = 365-t;
+				d.innerHTML = t;
 			}
 			else {
 				d.innerHTML = what_days(ms, end) - what_days(ms, today);
