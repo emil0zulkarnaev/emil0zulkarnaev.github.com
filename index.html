@@ -3,7 +3,7 @@
 		<style>
 			#time {
 				position: fixed;
-				top: 100px;
+				top: 50px;
 				left: 50%;
 
 				width: 200px;
@@ -24,6 +24,8 @@
 				var canvas = document.getElementById("canvas");
 				canvas.width  = document.body.clientWidth*0.75;
 				canvas.height = canvas.width*0.6319498825371965;
+				if (document.body.clientWidth > 1500)
+					canvas.style.zoom = 0.75;
 				console.log(canvas.width, canvas.height);
 				canvas.style.position = "fixed";
 				canvas.style.top = "200px";
