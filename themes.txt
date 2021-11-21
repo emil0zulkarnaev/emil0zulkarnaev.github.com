@@ -1,4 +1,0 @@
-Test string
-
-some
-test_1
