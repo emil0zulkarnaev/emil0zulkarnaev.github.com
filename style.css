@@ -1,0 +1,36 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+#container {
+	margin: 30px auto;
+	width: 1200px;
+	display: flex;
+	flex-direction: row;
+}
+
+#additional {
+	width: 30%;
+	display: flex;
+	flex-direction: column;
+}
+
+.search > input[type="text"] {
+	padding: 3px 5px;
+	width: 250px;
+}
+
+.list {
+	display: flex;
+	flex-direction: column;
+}
+
+.list > a {
+	margin: 3px 0;
+	padding: 3px 0;
+}
+
+#main {
+	width: 69%;
+}
