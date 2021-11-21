@@ -29,6 +29,12 @@ $(()=> {
 	}
 	$.getJSON("list.json", (json)=> {
 		LIST = json;
+		let text = '';
+		for (let ind in LIST) {
+			let element = LIST[ind];
+			text += `<a href="#${ind}">${element.replace(".md", '')}</a>`;
+		}
+		notes_list.html(text);
 		reload();
 	});
 	
