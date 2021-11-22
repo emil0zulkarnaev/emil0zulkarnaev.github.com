@@ -6,6 +6,9 @@
 * **HSE** - высокоскоростной внешний генератор
 * **Main PLL (PLL)** - пока что хз
 
-RCC_CR - RCC clock control register
+HSERDY в RCC_CR - бит, показывающий стабильность внешнего генератора (HSE). Тактирование не сбрасывается, пока этот бит не будет установлен аппаратно.
 
-бе =В
+HSEON в RCC_CR - включает и отключает тактирование от HSE
+
+RCC_CR - RCC clock control register
+RCC_CIR - RCC clock interrupt registerr
