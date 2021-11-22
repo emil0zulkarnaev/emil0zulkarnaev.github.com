@@ -1,6 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Code+Latin:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
 * {
 	margin: 0;
 	padding: 0;
+
+	font-family: Tahoma, Arial, sans-serif;
 }
 
 #container {
@@ -34,4 +38,25 @@
 
 #main {
 	width: 69%;
+	color: rgba(0,0,0, .92);
+}
+
+#main > * {
+	margin-top: 10px;
+}
+
+#main ul li {
+	margin-left: 30px;
+}
+
+#main pre {
+	margin: 15px 0;
+    margin-left: 15px;
+    padding-left: 20px;
+    font-size: 17px;
+	border-left: #3a3a3a 6px solid;
+}
+
+#main code {
+	font-family: 'M PLUS Code Latin', 'Roboto Condensed', sans-serif;
 }

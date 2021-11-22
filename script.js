@@ -2,11 +2,10 @@ $(()=> {
 	var LIST = {},
 		CONVERTER = new showdown.Converter(),
 		main_container = $("#main"),
-		notes_list = $(".list"),
-		re = /\/#(\d*)/g;
+		notes_list = $(".list");
 	function reload() {
+		var re = /\/#(\d*)/g;
 		var	current_note = re.exec(window.location.href);
-		console.log(current_note);
 		if (current_note == null || current_note[1].length == 0) {
 			$.ajax({
 				url: "notes/HELLO.md",
