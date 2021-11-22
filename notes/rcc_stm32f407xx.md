@@ -6,4 +6,6 @@
 * **HSE** - высокоскоростной внешний генератор
 * **Main PLL (PLL)** - пока что хз
 
-RCC_CR - RCC clock control registerter
+RCC_CR - RCC clock control register
+
+бе =В
