@@ -17,3 +17,16 @@ HSITRIM[4:0] в RCC_CR - используется для обрезки част
 RCC_CR - RCC clock control register
 
 RCC_CIR - RCC clock interrupt register
+
+## Что нужно, чтобы настроить RCC
+
+* Выбрать источник (HSE, HSI, PLL)
+* Если выбран PLL, то настроить делитель на выходе, множитель и делитель на выходе PLL
+* Настроить делитель AHB
+* Настроить делитель для Cortex Systeim timer
+* Настроить делитель для APB1 peripheral clocks
+* Настроить множитель для APB1 Timer clocks
+* Настроить делитель для APB2 peripheral clocks
+* Настроить множитель для APB2 timer clocks
+
+[Схему, что куда идёт, чтобы было понятнее, можно посмотреть тут](https://emil0zulkarnaev.github.io/#4)
