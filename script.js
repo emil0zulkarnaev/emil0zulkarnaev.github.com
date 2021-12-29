@@ -17,7 +17,7 @@ $(()=> {
 			});
 		} else {
 			$.ajax({
-				url: "notes/"+LIST[+current_note[1]],
+				url: "notes/"+LIST[+current_note[1]]["file_name"],
 				dataType: "text",
 				success: (data) => {
 					html = CONVERTER.makeHtml(data);
@@ -31,22 +31,22 @@ $(()=> {
 		let text = '';
 		for (let ind in LIST) {
 			let element = LIST[ind];
-			text += `<a href="#${ind}">${element.replace(".md", '')}</a>`;
+			text += `<a href="#${ind}">${element["header"]}</a>`;
 		}
 		notes_list.html(text);
 		reload();
 	});
 	
 	$("#search-input").on("input", (e) => {
-		let value = e.target.value,
+		let value = e.target.value.toLowerCase(),
 			current_list = [];
 
 		let text = '';
 
 		for (let ind in LIST) {
 			let element = LIST[ind];
-			if (element.indexOf(value) != -1) {
-				text += `<a href="#${ind}">${element.replace(".md", '')}</a>`;
+			if (element["header"].toLowerCase().indexOf(value) != -1) {
+				text += `<a href="#${ind}">${element["header"]}</a>`;
 			}
 		}
 		notes_list.html(text);

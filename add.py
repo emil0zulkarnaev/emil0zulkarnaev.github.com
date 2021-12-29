@@ -31,7 +31,7 @@ if __name__ == "__main__":
         with open("list.json", 'r', encoding="utf-8") as file:
             data = loads(file.read())
     except:
-        data = {"files": []}
+        data = {}
 
     dir_ = ''
     if len(argv) == 2:
@@ -42,8 +42,8 @@ if __name__ == "__main__":
 
     files = os.listdir(dir_)
 
-    names = [x["file_name"] for x in data["files"]]
-    ids   = [int(x["id"]) for x in data["files"]]
+    names = [data[x]["file_name"] for x in data]
+    ids   = list(data.keys())
     max_id = 0
     if len(ids) > 0: max_id = max(ids)
 
@@ -62,33 +62,10 @@ if __name__ == "__main__":
         print("new file:", file, "["+header+"]")
 
         max_id += 1
-        data["files"].append({
+        data[max_id] = {
             "file_name": file,
-            "id": max_id,
             "header": header
-            })
+            }
         
     with open("list.json", 'w', encoding="utf-8") as file:
         file.write(dumps(data))
-
-"""
-    if len(argv) == 2:
-        try:
-            with open("list.json", 'r', encoding="utf-8") as file:
-                text = file.read()
-        except:
-            text = ""
-        if len(text) == 0:
-            list_ = {}
-            mx = 0
-        else:
-            list_ = loads(text)
-            mx = max([int(x) for x in list(list_.keys())])
-        names = [list_[x] for x in list_]
-        if argv[1] in names:
-            print("Запись с таким названием уже существует")
-        else:
-            list_[mx+1] = argv[1]
-            with open("list.json", 'w', encoding="utf-8") as file:
-                file.write(dumps(list_))
-                """
