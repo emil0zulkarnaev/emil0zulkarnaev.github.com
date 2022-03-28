@@ -19,6 +19,7 @@
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
+	align-items: center;
 }
 #stakan {
 	width: 19%;
@@ -49,7 +50,7 @@
 #myChart {
 	width: 80% !important;
 	/*width: 800px !important;*/
-	height: 100% !important;
+	height: 80% !important;
 }
 </style>
 </head>
@@ -116,14 +117,14 @@
 		setInterval(()=>{
 			var who = Math.round(Math.random()*100);
 			if (who % 2 == 0) {
-				let rand = Math.random()*d_price;
+				let rand = Math.random()*0;
 				Sellers.push({
 							"count": Math.round(Math.random()*(max_count-min_count)+min_count),
 							"price": PRICE*(1+Math.random()*(d_price+rand)-rand)
 							}
 						);
 			} else {
-				let rand = Math.random()*d_price;
+				let rand = Math.random()*0;
 				Buyers.push({
 							"count": Math.round(Math.random()*(max_count-min_count)+min_count),
 							"price": PRICE*(1-Math.random()*(d_price+rand)-rand)
@@ -164,13 +165,19 @@
 					Buyers.splice(0, 1);
 				}
 			}
-			if (length > 70) {
-					for (let i=0; i<(length-50); i++) {
-						removeData(myChart);
-						length -= 1;
-					}
+			var change_price = Math.round(Math.random()*100);
+			if (change_price % 20 == 0) {
+				PRICE *= (1+Math.random()*(d_price+d_price)-d_price);
+				addData(myChart, '', PRICE);
+				length += 1;
 			}
-		}, 50);
+			if (length > 1000) {
+				for (let i=0; i<(length-50); i++) {
+					removeData(myChart);
+					length -= 1;
+				}
+			}
+		}, 1);
 	</script>
 </body>
 </html>
