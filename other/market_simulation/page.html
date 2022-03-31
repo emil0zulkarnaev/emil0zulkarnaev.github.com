@@ -63,11 +63,15 @@
 	height: 200px;
 	display: flex;
 	flex-direction: row;
-	justify-content: space-around;
+	justify-content: center;
 }
 #demandChart {
-	width: 200px  !important;
-	height: 200px !important;
+	/*width: 200px  !important;
+	height: 200px !important;*/
+}
+.chartGroup {
+	width: 400px;
+	height: 300px;
 }
 </style>
 </head>
@@ -81,8 +85,12 @@
 		</div>
 		<div id="charts">
 			<div id="additional">
-				<canvas id="demandChart"></canvas>
-				<canvas id="supplyChart"></canvas>
+				<div class="chartGroup">
+					<canvas id="demandChart"></canvas>
+				</div>
+				<div class="chartGroup">
+					<canvas id="supplyChart"></canvas>
+				</div>
 			</div>
 			<canvas id="priceChart"></canvas>
 		</div>

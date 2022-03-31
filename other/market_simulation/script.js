@@ -29,7 +29,7 @@ window.onload = () => {
 						display: true,
 						text: "Цена",
 						font: {
-							size: 20
+							size: 25 
 						}
 					}
 				}
@@ -45,8 +45,64 @@ window.onload = () => {
 				labels: [],
 				datasets: [{
 					label: 'Demand',
-
+					backgroundColor: 'rgb(0,0,0)',
+					borderColor: 'rgb(0,0,0)',
+					data: []
 				}],
+			},
+			options: {
+				responsive: true,
+				//maintainAspectRatio: false,
+				animation: {
+					duration: 0
+				},
+				plugins: {
+					legend: {
+						display: false
+					},
+					title: {
+						display: true,
+						text: "Спрос",
+						font: {
+							size: 20
+						}
+					}
+				}
+			}
+		}
+	);
+
+	const ctxSupplyChart = document.getElementById("supplyChart").getContext('2d');
+	const supplyChart = new Chart(ctxSupplyChart,
+		{
+			type: "line",
+			data: {
+				labels: [],
+				datasets: [{
+					label: 'Demand',
+					backgroundColor: 'rgb(0,0,0)',
+					borderColor: 'rgb(0,0,0)',
+					data: []
+				}],
+			},
+			options: {
+				responsive: true,
+				//maintainAspectRatio: false,
+				animation: {
+					duration: 0
+				},
+				plugins: {
+					legend: {
+						display: false
+					},
+					title: {
+						display: true,
+						text: "Предложение",
+						font: {
+							size: 20
+						}
+					}
+				}
 			}
 		}
 	);
@@ -60,7 +116,11 @@ window.onload = () => {
 	var length = 0,
 		orders_count_limit = 100;
 	var d_price = 0.01,
-		d       = 0.01; 
+		d       = 0.01;
+
+	var SupplyDemandCountLimit = 15,
+		Supply = [],
+		Demand = [];
 
 	function removeData(chart, update=true) {
 		chart.data.labels.splice(0,1);
@@ -70,18 +130,57 @@ window.onload = () => {
 		if (update)
 			chart.update();
 	}
-	function addData(chart, label, data) {
+	function addData(chart, label, data, ln, ln_max=100, update=true) {
 		chart.data.labels.push(label);
 		chart.data.datasets.forEach((dataset) => {
 			dataset.data.push(data);
 		});
-		chart.update();
-		if (length > 100) {
-			removeData(chart);
-			length -= 1;
+		if (update)
+			chart.update();
+		if (ln > ln_max) {
+			removeData(chart, update);
+			ln -= 1;
 		}
 	}
-	
+
+	function SupplyDemandUpdate() {
+		/*
+		let SupplyPointsPrice  = [],
+			SupplyPointsVolume = [],
+			DemandPointsPrice  = [],
+			DemandPointsVolume = [];
+		*/
+		if (Supply.length > SupplyDemandCountLimit)
+			Supply.splice(0, 1);
+		if (Demand.length > SupplyDemandCountLimit)
+			Demand.splice(0, 1);
+
+		let SupplyCopy = [];
+
+		for (let i=0; i<Supply.length; i++) {
+			SupplyCopy.push(Supply[i]);
+			removeData(supplyChart);
+		}
+		SupplyCopy.sort((a,b)=>a.count-b.count);
+
+		for (let i=0; i<SupplyCopy.length; i++) {
+			addData(supplyChart, SupplyCopy[i].count, SupplyCopy[i].price, 1000, 1000, false);
+		}
+		supplyChart.update();
+
+
+		let DemandCopy = [];
+		for (let i=0; i<Demand.length; i++) {
+			DemandCopy.push(Demand[i]);
+			removeData(demandChart);
+		}
+		DemandCopy.sort((a,b)=>a.count-b.count);
+
+		for (let i=0; i<DemandCopy.length; i++) {
+			addData(demandChart, DemandCopy[i].count, DemandCopy[i].price, 1000, 1000, false);
+		}
+		demandChart.update();	
+	}
 
 	function createOrders() {
 		let who = Math.round(Math.random()*100);
@@ -136,8 +235,19 @@ window.onload = () => {
 			if (PRICE != Sellers[0].price) {
 				PRICE = Sellers[0].price;
 				length += 1;
-				addData(priceChart, '', PRICE);
+				addData(priceChart, '', PRICE, length, 100);
 			}
+
+			Supply.push({
+				"count": Sellers[0].count,
+				"price": Sellers[0].price
+			});
+			Demand.push({
+				"count": Buyers[0].count,
+				"price": Sellers[0].price
+			});
+			SupplyDemandUpdate();
+
 			let d_count = Sellers[0].count - Buyers[0].count;
 			if (d_count == 0) {
 				Sellers.splice(0, 1);
@@ -150,7 +260,7 @@ window.onload = () => {
 			else if (d_count > 0) {
 				Sellers[0].count -= Buyers[0].count;
 				Buyers.splice(0, 1);
-			}
+			}	
 		}
 	}
 
