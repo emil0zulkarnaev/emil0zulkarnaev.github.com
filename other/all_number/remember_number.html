@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>all number</title>
+	<style>
+	* {
+		margin:  0;
+		padding: 0;
+		font-family: Tahoma, Arial, sans-serif;
+		user-select: none;
+	}
+	#timer {
+		margin: auto;
+		margin-top: 100px;
+		width: 300px;
+	}
+	#timer-time {
+		width: 100%;
+		text-align: center;
+		font-size: 35px;
+		color: rgba(0,0,0,.5);
+	}
+	#refresh {
+		position: relative;
+		top: -27px;
+		left: 350px;
+		font-size: 15px;
+		opacity: .5;
+		cursor: pointer;
+	}
+	#refresh:hover {
+		opacity: 1;
+	}
+	#container {
+		margin: auto;
+		margin-top: 30px;
+		width: 600px;
+		height: 600px;
+		/*box-shadow: 0 0 1px 1px;*/
+		display: flex;
+		flex-direction: column;
+
+		background-image: linear-gradient(to left, rgba(0,255,0,.3), rgba(0,0,255,0.3));
+		border-radius: 5px;
+	}
+	.row {
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+	}
+	.number {
+		width:100px;
+		height:100px;
+		text-align: center;
+		font-size: 30px;
+		line-height: 140px;
+		box-shadow: 0 0 0 .35px;
+		cursor: pointer;
+	}
+	.number:hover {
+		box-shadow: 0 0 0 .7px;
+	}
+	</style>
+</head>
+<body>
+	<div id="timer">
+		<div id="timer-time">Да начнётся игра!</div>
+		<div id="refresh">Начать</div>
+	</div>
+	<div id="container">
+	</div>
+	
+<script>
+var N = 2,
+	L = 600;
+
+var container = document.getElementById("container"),
+	timer     = document.getElementById("timer-time"),
+	refresh   = document.getElementById("refresh"),
+	timer_val = 0,
+	timer_max = 5,
+	state = 0,
+	next = 1,
+	max  = 0; // 0 - самое начало, 1 - игра
+
+function to_play() {
+	let elements = container.querySelectorAll(".number");
+	for (var el of elements) {
+		el.innerText = '';
+		el.onclick = (e) => {
+			let current_val = Number(e.target.getAttribute('n'));
+			if (current_val != next) {
+				timer.innerText = "Бывает =(";
+				state = 0;
+				if (N > 2) {
+					N--;
+					timer_max = timer_max/2;
+				}
+				timer_val = timer_max;
+				get_ready_place(N);
+				timer_tick();
+			} else {
+				if (current_val == max) {
+					N++;
+					state = 0;
+					timer_max = timer_max*2;
+					timer_val = timer_max;
+					get_ready_place(N);
+					timer_tick();
+				} else {
+					next++;
+				}
+				e.target.innerText = current_val;
+			}
+		}
+	}
+}
+
+function timer_tick() {
+	if (timer_val > 0)
+		setTimeout(()=> {
+			timer_val--;
+			timer.innerText = timer_val;
+			timer_tick();
+		}, 1000);
+	else {
+		state = 1;
+		to_play();
+	}
+}
+
+function get_ready_place(N) {
+	container.innerHTML = '';
+	let ms = [],
+		l  = L/N,
+		sq = N*N;
+	max  = sq;
+	next = 1;
+
+	for (var n=0; n<sq; n++) {
+		ms.push(n+1);
+	}
+
+	for (var r=0; r<N; r++) {
+		let row = document.createElement("div");
+		row.classList.add("row");
+		for (var c=0; c<N; c++) {
+			let ind = Math.floor(Math.random()*ms.length);
+			let column = document.createElement("div");
+			column.classList.add("number");
+			column.style.width  = `${l}px`;
+			column.style.height = `${l}px`;
+			column.style.fontSize = `${l/2}px`;
+			column.style.lineHeight = `${l*0.95}px`
+			if (r == 0 && c == 0)
+				column.style.borderRadius = "5px 0 0 0";
+			if (r == N-1 && c == N-1)
+				column.style.borderRadius = "0 0 5px 0";
+			column.innerText = ms[ind];
+			column.setAttribute('n', ms[ind]);
+			ms.splice(ind, 1);
+
+			row.appendChild(column);
+		}
+		container.appendChild(row);
+	}
+}
+
+refresh.onclick = () => {
+	if (timer_val == 0) {
+		timer_val = timer_max;
+		get_ready_place(N);
+		timer_tick();
+	}
+}
+</script>
+</body>
+</html>

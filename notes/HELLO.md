@@ -3,4 +3,4 @@
 
 #### Вот тут есть кое-что прикольное
 
-* [Симулятор торговли (чем-либо)] (https://emil0zulkarnaev.github.io/other/market_simulation/page.html)
+* [Тренажёр: запомни числа] (https://emil0zulkarnaev.github.io/all_number/remember_number.html)
