@@ -1,62 +1,197 @@
-@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Code+Latin:wght@600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
+@font-face {
+	font-family: "Pangolin";
+	src: url(./fonts/Pangolin-Regular.ttf);
+}
+@font-face {
+	font-family: "Roboto Condensed";
+	src: url(./fonts/RobotoCondensed-Regular.ttf);
+}
 * {
 	margin: 0;
 	padding: 0;
 
-	font-family: Tahoma, Arial, sans-serif;
+	font-family: "Pangolin";
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+h1,h2,h3,h4 {
+	font-family: 'Roboto Condensed', sans-serif;
+}
+
+ul {
+	list-style-type: none;
 }
 
 #container {
+	width: 1000px;
 	margin: 30px auto;
-	width: 1200px;
+
 	display: flex;
 	flex-direction: row;
 }
 
-#additional {
-	width: 30%;
-	display: flex;
-	flex-direction: column;
+#content {
+	margin-right: 10px;
+	width: 77%;
+
+	font-size: 19px;
+}
+#list-of-content > li {
+	padding: 20px 0;
+	border-bottom: solid rgba(0,0,0, .3) 1px;
+}
+#list-of-content > li:first-child {
+	padding-top: 0;
+}
+#list-of-content > li:last-child {
+	border-bottom: none;
+}
+#list-of-content a:hover {
+	text-decoration: underline;
 }
 
-.search > input[type="text"] {
-	padding: 3px 5px;
-	width: 250px;
-}
-
-.list {
-	margin-top: 20px;
-	display: flex;
-	flex-direction: column;
-}
-
-.list > a {
-	margin: 3px 0;
-	padding: 3px 0;
-}
-
-#main {
-	width: 69%;
-	color: rgba(0,0,0, .92);
-}
-
-#main > * {
+.hashtags {
 	margin-top: 10px;
+	font-size: 14px;
+}
+.hashtags, .hashtags ul {
+	width: 100%
+}
+.hashtags ul {
+	display: flex;
+	flex-direton: row;
+	justify-content: start;
+	align-items: center;
+}
+.hashtags ul li {
+	margin-left: 10px;
+}
+.hashtags ul li:first-child {
+	margin-left: 0;
+}
+.hashtags ul li a {
+	color: rgba(0,0,255, .3);
 }
 
-#main ul li {
-	margin-left: 30px;
+#right {
+	width: 20%;
 }
 
-#main pre {
-	margin: 15px 0;
-    margin-left: 15px;
-    padding-left: 20px;
-    font-size: 17px;
-	border-left: #3a3a3a 6px solid;
+#right-fixed-container {
+	position: fixed;
+	width: 200px;
 }
 
-#main code {
-	font-family: 'M PLUS Code Latin', 'Roboto Condensed', sans-serif;
+.list-section {
+	width:  100%;
+}
+.list-section li {
+	margin-bottom: 15px;
+	width: 100%;
+	height: 45px;
+
+	font-weight: 700;
+
+	border: solid #0000000f 1px;
+	border-radius: 5px;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.list-section-projects {
+	background: rgb(235,90,90);
+	background: linear-gradient(90deg, rgba(235,90,90,0.9528186274509804) 5%, rgba(255,106,0,1) 100%);
+}
+.list-section-notes {
+	background: rgb(134,235,90);
+	background: linear-gradient(90deg, rgba(134,235,90,0.9528186274509804) 5%, rgba(176,255,0,0.927608543417367) 100%);
+}
+.list-section-fun {
+	background: rgb(158,90,235);
+	background: linear-gradient(90deg, rgba(158,90,235,0.9528186274509804) 5%, rgba(98,0,255,0.5522584033613445) 100%);
+}
+
+#search {
+	width: 100%;
+}
+#search input {
+	padding: 5px 10px;
+
+	width: 100%;
+
+	font-size: 14px;
+}
+#search-help {
+	position: absolute;
+	top: 150px;
+	left: -130px;
+	padding: 10px;
+	width: 100px;
+	height: 80px;
+
+	background: rgb(53 245 245);
+	box-shadow: 0 0 1px 0;
+
+	display: none;
+}
+#search-help:before {
+	content: "";
+    position: absolute;
+    left: 98%;
+    top: 39px;
+    width: 0;
+    height: 0;
+    border-top: 12px solid transparent;
+    border-left: 13px solid rgb(53 245 245);
+    border-bottom: 12px solid transparent;
+}
+
+#finded li {
+	margin: 0 auto;
+	padding: 5px 27px;
+
+	width: 71%;
+	height: 20px;
+
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	text-align: center;
+	box-shadow: 0 0 1px 0;
+
+	overflow: hidden;
+}
+.finded-thema:before {
+	content: "";
+    position: absolute;
+    left: 7px;
+    margin-top: 3px;
+    width: 13px;
+    height: 13px;
+    background: #8a8aff;
+    color: transparent;
+    font-size: 12px;
+    border-radius: 100px;
+    /*
+    border-top: 5px solid rgb(53 245 245);
+    border-left: 5px solid rgb(53 245 245);
+    border-right: 5px solid rgb(53 245 245);
+    border-bottom: 5px solid rgb(53 245 245);*/
+    /*border: 10px solid rgb(53 245 245);*/
+}
+
+#references {
+	width: 1000px;
+	margin: 0 auto;
+	text-align: center;
+}
+#references > * {
+	display: block;
+}
+#references a {
+	color: rgba(0,0,255, .7);
 }
