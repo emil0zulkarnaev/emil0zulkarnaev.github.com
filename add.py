@@ -1,6 +1,9 @@
+#!/usr/bin/python
+#-*- coding:utf-8 -*-
+
 import os
 from sys import argv as ARGV, exit as EXIT
-from json import dump, loads, dumps
+from json import loads, dumps
 
 """
 {
@@ -75,6 +78,72 @@ class Data:
             if file not in self.files:
                 self.new_files.append(file)
 
+    def hashtag(self):
+        section_name = c_input("Введите название раздела (либо только часть): ", "green").strip()
+
+        flag = False
+        for section_key in self.data.keys():
+            if section_key == "main": continue
+            section = self.data[section_key]["name"]
+            if section_name in section:
+                if not flag: flag = True
+                print(colors["yellow"].format(section_key), "->", section)
+
+        if not flag:
+            c_print("Подобного раздела нет", "red")
+            return
+
+        section_ind = c_input("Выберите раздел: ", "green").strip()
+        if section_ind not in self.data.keys():
+            c_print("Необходимо выбрать номер раздела", "red")
+            return
+
+        topic_name = c_input("Введите название темы (либо только часть): ", "green").strip()
+        flag = False
+        for topic_key in self.data[section_ind]["topics"].keys():
+            topic = self.data[section_ind]["topics"][topic_key]["name"]
+            if topic_name in topic:
+                if not flag: flag = True
+                print(colors["yellow"].format(topic_key), "->", topic)
+        
+        topic_ind = ""
+        if not flag:
+            c_print("Подобной темы нет", "red")
+            return
+
+        topic_ind = c_input("Выберите тему: ", "green").strip()
+        if topic_ind not in self.data[section_ind]["topics"].keys():
+            c_print("Необходимо выбрать номер темы", "red")
+            return
+
+        note_name = c_input("Введите название записи (либо только часть): ", "green").strip()
+        flag = False
+        for note_key in self.data[section_ind]["topics"][topic_ind]["notes"].keys():
+            note = self.data[section_ind]["topics"][topic_ind]["notes"][note_key]["name"]
+            if note_name in note:
+                if not flag: flag = True
+                print(colors["yellow"].format(note_key), "->", note)
+        
+        note_ind = ""
+        if not flag:
+            c_print("Подобной записи нет", "red")
+            return
+
+        note_ind = c_input("Выберите тему: ", "green").strip()
+        if note_ind not in self.data[section_ind]["topics"][topic_ind]["notes"].keys():
+            c_print("Необходимо выбрать номер записи", "red")
+            return
+
+        hashtags = c_input("Введите хештеги через пробел: ", "green").strip()
+        if len(hashtags) == 0:
+            c_print("Вы столько всего до этого прошли, дошли до сюдого и в итоге не ввели ничего?", "red")
+            return
+
+        current_hashtags = self.data[section_ind]["topics"][topic_ind]["notes"][note_ind]["hashtags"]
+        hashtags = list(set([x for x in hashtags.split(' ')] + current_hashtags))
+        self.data[section_ind]["topics"][topic_ind]["notes"][note_ind]["hashtags"] = hashtags
+                
+
     def new(self, new_name):
         self.find_new()
 
@@ -116,7 +185,7 @@ class Data:
             if yn in ["n", "no"]:
                 section_name = c_input("Введите название нового раздела: ", "green").strip()
         else:
-            section_ind = c_input("Выбрите раздел: ", "green").strip()
+            section_ind = c_input("Выберите раздел: ", "green").strip()
             section_name = ""
             if section_ind not in self.data.keys():
                 section_name = c_input("Раздела с таким номер пока нет.\nВведите название нового раздела:", "turquoise").strip()
@@ -132,7 +201,7 @@ class Data:
                 topic = self.data[section_ind]["topics"][topic_key]["name"]
                 if topic_name in topic:
                     if not flag: flag = True
-                    print(colors["yello"].format(topic_key), "->", topic)
+                    print(colors["yellow"].format(topic_key), "->", topic)
             
             topic_ind = ""
             if not flag:
@@ -140,7 +209,7 @@ class Data:
                 if yn in ["n", "no"]:
                     topic_name = c_input("Темы с похожим названием нет.\nВведите название новой темы:", "turquoise").strip()
             else:
-                topic_ind = c_input("Выбрите тему: ", "green").strip()
+                topic_ind = c_input("Выберите тему: ", "green").strip()
                 topic_name = ""
                 if topic_ind not in self.data[section_ind]["topics"].keys():
                     topic_name = c_input("Темы с таким номер пока нет.\nВведите название новой темы:", "turquoise").strip()
@@ -188,15 +257,21 @@ class Data:
                             "hashtags": []
                             } 
 
+def not_enough_arguments():
+    c_print("Не верная команда или не достаточно аргументов", "red")
+    EXIT(1)
+
 if __name__ == "__main__":
-    if len(ARGV) < 3:
-        c_print("Не достаточно аргументов", "red")
-        EXIT(1)
+    d = Data()
+    ln = len(ARGV)
+    if ln >= 3 and ARGV[1] == "new":
+        d.new(ARGV[2])
+        d.save()
+    elif ln >= 2 and ARGV[1] == "hashtag":
+        d.hashtag()
+        d.save()
     else:
-        d = Data()
-        if ARGV[1] == "new":
-            d.new(ARGV[2])
-            d.save()
+        not_enough_arguments()
 
     if "--debug" in ARGV:
         from pprint import pprint
