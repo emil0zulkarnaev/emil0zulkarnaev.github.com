@@ -1,71 +1,203 @@
 import os
-from sys import argv
-from json import loads, dumps
+from sys import argv as ARGV, exit as EXIT
+from json import dump, loads, dumps
 
 """
-Итоговый файл
-Массив со словарями:
-    - id
-    - Заголовок
-    - Название файла
-
-Генерация
-
-Открыть уже существующий итоговый файл, если он есть в текущей директории (list.json)
-Прошерстить указанную директорию, либо в текущей найти директорию notes
-Собрать список файлов
-Определить новые файлы
-Для каждого нового файла взять первую строку c заголовком
-Добавить в итоговый файл
-
-Команда запуска
-python add.py [директория]
-
-Файлы должны иметь расширение md или html
-
+{
+	"main": {
+		"1": "Наименование файла"
+	},
+	"1": {
+		"name": "Название",
+		"topics": {
+			"1": {
+				"name": "Название темы",
+				"file_name": "Наименование файла",
+				"hashtags": []
+			},
+		}
+	}
+}
 """
+
+colors = {
+        "red"       : "\033[31m\033[1m{}\033[0m",
+        "green"     : "\033[32m\033[1m{}\033[0m",
+        "yellow"    : "\033[33m\033[1m{}\033[0m",
+        "turquoise" : "\033[36m\033[1m{}\033[0m",
+        }
+
+def c_print(text, color):
+    global colors
+    print(colors[color].format(text))
+
+def c_input(text, color):
+    global colors
+    return input(colors[color].format(text))
+
+class Data:
+    def __init__(self):
+        self.load()
+        self.get_all()
+        self.nodata = False
+    
+    def load(self):
+        with open("list.json", 'r', encoding="utf-8") as file:
+            text = file.read().strip()
+            if len(text) == 0:
+                self.nodata = True
+                self.data = {"main": {}}
+            else:
+                self.data = loads(text)
+
+    def save(self):
+        with open("list.json", 'w', encoding="utf-8") as file:
+            file.write(dumps(self.data))
+
+
+    def get_all(self):
+        self.files = []
+
+        for key, section in self.data.items():
+            if key == "main":
+                for file_name in section.values():
+                    self.files.append(file_name)
+            else:
+                for topic in section["topics"].values():
+                    for note in topic["notes"].values():
+                        self.files.append(note["file_name"])
+
+    def find_new(self):
+        files = os.listdir("./notes/")
+        self.new_files = []
+
+        for file in files:
+            if file not in self.files:
+                self.new_files.append(file)
+
+    def new(self, new_name):
+        self.find_new()
+
+        if len(self.new_files) == 0:
+            c_print("Нет новых файлов для добавления чего-либо нового", "red")
+            return
+
+        for ind in range(len(self.new_files)):
+            print(colors["yellow"].format(ind+1), "->", self.new_files[ind])
+        try:
+            new_file_ind = int(c_input("Выберите новый файл: ", "green").strip()) - 1
+        except ValueError:
+            c_print("Нужно было вводить число, что ты делаешь???.......", "red")
+            return
+        if new_file_ind < 0 or new_file_ind >= len(self.new_files):
+            c_print("Необходимо ввести номер файла", "red")
+            return
+        
+        section_name = c_input("Введите название раздела (либо только часть): ", "green").strip()
+        if section_name == "main":
+            main_keys = self.data["main"].keys()
+            if len(main_keys) == 0:
+                self.data["main"]["1"] = self.new_files[new_file_ind]
+            else:
+                self.data["main"][str(int(max(main_keys))+1)] = self.new_files[new_file_ind]
+            return
+
+        flag = False
+        for section_key in self.data.keys():
+            if section_key == "main": continue
+            section = self.data[section_key]["name"]
+            if section_name in section:
+                if not flag: flag = True
+                print(colors["yellow"].format(section_key), "->", section)
+
+        section_ind = ""
+        if not flag:
+            yn = c_input("Раздела с похожим названием нет.\nВыбрать это название, как новое? (Yn): ", "turquoise").strip().lower()
+            if yn in ["n", "no"]:
+                section_name = c_input("Введите название нового раздела: ", "green").strip()
+        else:
+            section_ind = c_input("Выбрите раздел: ", "green").strip()
+            section_name = ""
+            if section_ind not in self.data.keys():
+                section_name = c_input("Раздела с таким номер пока нет.\nВведите название нового раздела:", "turquoise").strip()
+
+        topic_name = ""
+        topic_ind  = 0 
+        if section_name != "":
+            topic_name = c_input("Введите название новой темы: ", "green").strip()
+        else:
+            topic_name = c_input("Введите название темы (либо только часть): ", "green").strip()
+            flag = False
+            for topic_key in self.data[section_ind]["topics"].keys():
+                topic = self.data[section_ind]["topics"][topic_key]["name"]
+                if topic_name in topic:
+                    if not flag: flag = True
+                    print(colors["yello"].format(topic_key), "->", topic)
+            
+            topic_ind = ""
+            if not flag:
+                yn = c_input("Темы с похожим названием нет.\nВыбрать это название, как новое? (Yn): ", "turquoise").strip().lower()
+                if yn in ["n", "no"]:
+                    topic_name = c_input("Темы с похожим названием нет.\nВведите название новой темы:", "turquoise").strip()
+            else:
+                topic_ind = c_input("Выбрите тему: ", "green").strip()
+                topic_name = ""
+                if topic_ind not in self.data[section_ind]["topics"].keys():
+                    topic_name = c_input("Темы с таким номер пока нет.\nВведите название новой темы:", "turquoise").strip()
+
+        data_keys = [x for x in self.data.keys() if x != "main"]
+
+        if section_name != "":
+            section_ind = int(max(data_keys)) if len(data_keys) > 0 else 0
+            section_ind = str(section_ind+1)
+            self.data[section_ind] = {"name": section_name, "topics": {}}
+            self.data[section_ind]["topics"]["1"] = {
+                    "name": topic_name, 
+                    "notes": {
+                        "1": {
+                            "name": new_name,
+                            "file_name": self.new_files[new_file_ind], 
+                            "hashtags": []
+                            }
+                        }
+                    }
+            return
+
+        if topic_name != "":
+            topic_ind   = int(max(self.data[str(section_ind)]["topics"].keys())) \
+                        if len(data_keys) > 0 else 0
+            topic_ind = str(topic_ind+1)
+            self.data[str(section_ind)]["topics"][topic_ind] = {
+                    "name": topic_name, 
+                    "notes": {
+                        "1": {
+                            "name": new_name,
+                            "file_name": self.new_files[new_file_ind], 
+                            "hashtags": []
+                            }
+                        }
+                    }
+            return
+
+        section_ind = section_ind
+        topic_ind   = topic_ind
+        note_ind = str(int(max(self.data[section_ind]["topics"][topic_ind]["notes"].keys()))+1)
+        self.data[section_ind]["topics"][topic_ind]["notes"][note_ind] = {
+                            "name": new_name,
+                            "file_name": self.new_files[new_file_ind], 
+                            "hashtags": []
+                            } 
 
 if __name__ == "__main__":
-    data = None 
-    try:
-        with open("list.json", 'r', encoding="utf-8") as file:
-            data = loads(file.read())
-    except:
-        data = {}
-
-    dir_ = ''
-    if len(argv) == 2:
-        dir_ = argv[1]
-        if dir_[-1] != '/': dir_ += '/'
+    if len(ARGV) < 3:
+        c_print("Не достаточно аргументов", "red")
+        EXIT(1)
     else:
-        dir_ = "./notes/"
+        d = Data()
+        if ARGV[1] == "new":
+            d.new(ARGV[2])
+            d.save()
 
-    files = os.listdir(dir_)
-
-    names = [data[x]["file_name"] for x in data]
-    ids   = list(data.keys())
-    max_id = 0
-    if len(ids) > 0: max_id = max(ids)
-
-    for file in files:
-        if file in names: continue
-        if ".md" not in file and ".html" not in file: continue
-
-        header = file.replace(".html", '')
-        if ".md" in file:
-            try:
-                with open(dir_+file, 'r') as file_:
-                    header = file_.readline().replace('#', '').strip()
-            except:
-                header = file.replace(".md", '')
-
-        print("new file:", file, "["+header+"]")
-
-        max_id += 1
-        data[max_id] = {
-            "file_name": file,
-            "header": header
-            }
-        
-    with open("list.json", 'w', encoding="utf-8") as file:
-        file.write(dumps(data))
+    if "--debug" in ARGV:
+        from pprint import pprint
+        pprint(d.data)
