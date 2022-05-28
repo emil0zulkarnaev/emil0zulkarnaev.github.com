@@ -1,0 +1,26 @@
+{
+  "main": {
+    "1": "HELLO.md"
+  },
+  "1": {
+    "name": "Проекты",
+    "topics": {
+      "1": {
+        "name": "Тестовая тема",
+        "notes": {
+          "1": {
+            "name": "Тестовая запись",
+            "file_name": "test.md",
+            "hashtags": [
+              "some_hashtag",
+              "cool",
+              "test_hashtag",
+              "love",
+              "pretty"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
