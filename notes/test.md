@@ -15,9 +15,8 @@
 					}
 				}
 			}
-			
-				find("");
-				reload();
+			find("");
+			reload();
 		});	
 
 ```

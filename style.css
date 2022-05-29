@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Nova+Mono&display=swap');
 @font-face {
 	font-family: "Pangolin";
 	src: url(./fonts/Pangolin-Regular.ttf);
@@ -6,6 +5,10 @@
 @font-face {
 	font-family: "Roboto Condensed";
 	src: url(./fonts/RobotoCondensed-Regular.ttf);
+}
+@font-face {
+	font-family: "NovaMono-Regular";
+	src: url(./fonts/NovaMono-Regular.ttf);
 }
 * {
 	margin: 0;
@@ -199,10 +202,11 @@ ul {
 }
 
 #references {
-	position: absolute;
-	left: 50%;
-	bottom: 0;
-	margin-left: -500px;
+	/*position: absolute;*/
+	/*left: 50%;*/
+	/*bottom: 0;*/
+	/*margin-left: -500px;*/
+	margin: 0 auto;
 	width: 1000px;
 	text-align: center;
 }
@@ -214,10 +218,32 @@ ul {
 }
 
 #note pre {
+	margin: 20px 0;
+	padding: 10px;
+	padding-left: 25px;
+
 	width: 100%;
+	box-sizing: border-box;
+
+	background: #b9c5ff14;
+
+	font-weight: 100;
 	overflow: auto;
 }
-code {
+
+code, .code-line-numbers {
 	font-size: 16px;
-	font-family: 'Nova Mono', monospace;
+	font-family: 'NovaMono-Regular', monospace;
+}
+
+.code-line-numbers {
+	margin: 0 !important;
+	padding: 10px 5px !important;
+
+	width: 40px !important;
+
+	text-align: right;
+
+	background: black !important;
+	color: white;
 }

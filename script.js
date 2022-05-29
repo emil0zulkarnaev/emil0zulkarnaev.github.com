@@ -83,7 +83,6 @@ $(()=> {
 			});
 		} else {
 			current_note = current_note.filter(value => typeof(value) == "string" && value != '');
-			console.log("current_note", current_note, current_note.length);
 			switch (current_note.length) {
 			// необходимо загрузить список тем
 			case 2:
@@ -107,6 +106,14 @@ $(()=> {
 					success: (data) => {
 						html = CONVERTER.makeHtml(data);
 						note.html(html);
+
+						let pre_elements = document.querySelectorAll("#note pre");
+						for (let el of pre_elements) {
+							let count = el.querySelector("code").innerHTML.trim().split(/\n/).length;
+							let ul = addCodeLineNumbers(el, count);
+
+							note.append(ul);
+						}
 					}
 				});
 				break;
@@ -130,7 +137,7 @@ $(()=> {
 				}
 			}
 		}
-		
+
 		find("");
 		reload();
 	});
