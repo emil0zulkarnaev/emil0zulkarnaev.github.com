@@ -1,6 +1,6 @@
 $(()=> {
 	var DATA = {},
-		THEMES = [],	// названия
+		THEMES = {},	// названия
 		NOTES  = {},	// названия
 		CONVERTER = new showdown.Converter(),
 		content = $("#content"),
@@ -110,9 +110,11 @@ $(()=> {
 						let pre_elements = document.querySelectorAll("#note pre");
 						for (let el of pre_elements) {
 							let count = el.querySelector("code").innerHTML.trim().split(/\n/).length;
-							let ul = addCodeLineNumbers(el, count);
+							let pre, ul;
+							[pre, ul] = addCodeLineNumbers(el, count);
 
-							note.append(ul);
+							note.append(pre);
+							// note.append(ul);
 						}
 					}
 				});
@@ -130,10 +132,13 @@ $(()=> {
 		for (var section_key in DATA) {
 			if (section_key == "main") continue;
 			for (var topic_key in DATA[section_key]["topics"]) {
-				THEMES.push(DATA[section_key]["topics"][topic_key]["name"]);
+				THEMES[DATA[section_key]["topics"][topic_key]["name"]] = `#${section_key}-${topic_key}`;
 				for (var note_key in DATA[section_key]["topics"][topic_key]["notes"]) {
 					let el = DATA[section_key]["topics"][topic_key]["notes"][note_key];
-					NOTES[el["name"]] = el["hashtags"];
+					NOTES[el["name"]] = {
+						"hashtags": el["hashtags"],
+						"url": `#${section_key}-${topic_key}-${note_key}`
+					}
 				}
 			}
 		}
@@ -142,27 +147,21 @@ $(()=> {
 		reload();
 	});
 
-	// reload();
-
+	// поиск тем и записей
 	function find(value) {
 		finded.html("");
 
 		let text = '';
-		`
-		<ul id="finded">
-			<a href="#"><li class="finded-note"> some 3 asd;kjf asdjf dkjf sdksjd f</li></a>
-			<a href="#"><li class="finded-thema">some 4</li></a>
-		`
 
-		for (let ind in THEMES) {
-			if (THEMES[ind].toLowerCase().indexOf(value) != -1) {
-				text += `<a href="#"><li class="finded-thema">${THEMES[ind]}</li></a>`;
+		for (let name in THEMES) {
+			if (name.toLowerCase().indexOf(value) != -1) {
+				text += `<a href="${THEMES[name]}"><li class="finded-thema">${name}</li></a>`;
 			}
 		}
 
 		for (let name in NOTES) {
 			if (name .toLowerCase().indexOf(value) != -1) {
-				text += `<a href="#"><li class="finded-note">${name}</li></a>`;
+				text += `<a href="${NOTES[name]["url"]}"><li class="finded-note">${name}</li></a>`;
 			}
 		}
 

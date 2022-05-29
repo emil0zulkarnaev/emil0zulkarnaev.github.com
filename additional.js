@@ -8,7 +8,7 @@ function addCodeLineNumbers(el, count) {
 
 	for (let i=0; i<count; i++) {
 		let li = document.createElement("li");
-		li.innerText = String(i+1);
+		li.innerText = "";
 		ul.appendChild(li);
 		text += String(i+1) + '\n';
 	}
@@ -16,8 +16,10 @@ function addCodeLineNumbers(el, count) {
 	pre.classList.add("code-line-numbers");
 	pre.style.position = "absolute";
 
-	ul.classList.add("code-line-numbers");
+	ul.classList.add("code-line-numbers-ul");
 	ul.style.position = "absolute";
+	ul.style.width = `${coords.width}px`;
+	// ul.style.height = "50px";
 
 	ul.style.top  = `${y+10}px`;
 	ul.style.left = `${x}px`;
@@ -27,7 +29,7 @@ function addCodeLineNumbers(el, count) {
 
 	pre.innerText = text;
 
-	return pre;
+	return [pre, ul];
 }
 
 $(()=> {

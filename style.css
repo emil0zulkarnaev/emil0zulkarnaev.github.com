@@ -207,6 +207,7 @@ ul {
 	/*bottom: 0;*/
 	/*margin-left: -500px;*/
 	margin: 0 auto;
+	margin-top: 700px;
 	width: 1000px;
 	text-align: center;
 }
@@ -231,7 +232,7 @@ ul {
 	overflow: auto;
 }
 
-code, .code-line-numbers {
+code, .code-line-numbers, .code-line-numbers-ul {
 	font-size: 16px;
 	font-family: 'NovaMono-Regular', monospace;
 }
@@ -247,3 +248,13 @@ code, .code-line-numbers {
 	background: black !important;
 	color: white;
 }
+
+/*.code-line-numbers-ul {
+	display: block;
+	z-index: 50;
+}
+.code-line-numbers-ul li {
+	width: 100%;
+	height: 16px;
+	display: block;
+}*/
