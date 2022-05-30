@@ -57,7 +57,7 @@ $(()=> {
 				let li_ = document.createElement("li"),
 					a_	= document.createElement('a');
 
-				a_.setAttribute("href", '#');
+				a_.setAttribute("href", '#tag-' + hashtag);
 				a_.innerText = '#' + hashtag;
 				li_.appendChild(a_);
 				ul.appendChild(li_);
@@ -76,7 +76,8 @@ $(()=> {
 
 		var re = /\/#(\d*)-?(\d*)?-?(\d*)?/g;
 		var	current_note = re.exec(window.location.href);
-		if (current_note == null || current_note.length < 2) {
+		console.log(current_note);
+		if (current_note == null || current_note.length < 2 || current_note[1] == "") {
 			$.ajax({
 				url: "notes/HELLO.md",
 				dataType: "text",
@@ -216,13 +217,13 @@ $(()=> {
 
 	$("#search-input").on("keydown", (e) => {
 		if(e.keyCode == 13) {
-			window.location.href = "/#find";
+			window.location.href = "/#f%20i%20n%20d";
 			build_finded_list_site(find(e.target.value));
 		}
 	});
 	
 	$(window).on('hashchange', (e) => {
-		if (window.location.href.indexOf("#find") != -1) return;
+		if (window.location.href.indexOf("#f%20i%20n%20d") != -1) return;
 		reload();
 	});
 });
