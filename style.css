@@ -22,7 +22,7 @@ a {
 	color: black;
 }
 
-h1,h2,h3,h4 {
+h1,h2,h3,h4 {	
 	font-family: 'Roboto Condensed', sans-serif;
 }
 
@@ -238,10 +238,21 @@ ul {
 	font-weight: 100;
 	overflow: auto;
 }
-
 code, .code-line-numbers, .code-line-numbers-ul {
 	font-size: 16px;
 	font-family: 'NovaMono-Regular', monospace;
+}
+#note h1,
+#note h2,
+#note h3,
+#note h4 {
+	margin-bottom: 20px;
+}
+#note a {
+	color: rgba(0,0,255, .3);
+}
+#note p {
+	margin: 10px 0;
 }
 
 .code-line-numbers {

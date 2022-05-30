@@ -1,7 +1,8 @@
 $(()=> {
 	var DATA = {},
-		THEMES = {},	// названия
-		NOTES  = {},	// названия
+		THEMES = {},	// названия тем
+		NOTES  = {},	// названия записей
+		TAGS   = {},	// названия хэштегов
 		CONVERTER = new showdown.Converter(),
 		content = $("#content"),
 		content_list = $("#list-of-content"),
@@ -13,24 +14,6 @@ $(()=> {
 	}
 
 	function list(el, path) {
-`
-<ul id="list-of-content">
-	<!-- <li>
-		<a href="#">
-			<h2>Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" </h2>
-		</a>
-		<div class="hashtags">
-			<ul>
-				<li><a href="#">#some 1</a></li>
-				<li><a href="#">#some 2</a></li>
-				<li><a href="#">#some 3</a></li>
-				<li><a href="#">#some 4</a></li>
-				<li><a href="#">#some 5</a></li>
-			</ul>
-		</div>
-	</li> -->
-</ul>
-`
 		let li 	= document.createElement("li"),
 			a  	= document.createElement('a'),
 			h2 	= document.createElement('h2'),
@@ -76,16 +59,33 @@ $(()=> {
 
 		var re = /\/#(\d*)-?(\d*)?-?(\d*)?/g;
 		var	current_note = re.exec(window.location.href);
-		console.log(current_note);
+		// console.log(current_note);
 		if (current_note == null || current_note.length < 2 || current_note[1] == "") {
-			$.ajax({
-				url: "notes/HELLO.md",
-				dataType: "text",
-				success: (data) => {
-					html = CONVERTER.makeHtml(data);
-					note.html(html);
+			re = /\/#tag\-([\w\d\-]+)?/g;
+			current_note = re.exec(window.location.href);
+			// console.log('tag searching', current_note);
+			if (current_note == null || current_note[1] == undefined)
+				$.ajax({
+					url: "notes/HELLO.md",
+					dataType: "text",
+					success: (data) => {
+						html = CONVERTER.makeHtml(data);
+						note.html(html);
+					}
+				});
+			// поиск по хэштегам
+			else {
+				let tag_name = current_note[1];
+				if (TAGS[tag_name] == undefined)
+					build_finded_list_site([]);
+				else {
+					let result = [];
+					for (let note of TAGS[tag_name]) {
+						result.push(["note", note["url"], note["name"], note]);
+					}
+					build_finded_list_site(result);
 				}
-			});
+			}
 		} else {
 			current_note = current_note.filter(value => typeof(value) == "string" && value != '');
 			switch (current_note.length) {
@@ -147,6 +147,12 @@ $(()=> {
 						"name": el["name"],
 						"hashtags": el["hashtags"],
 						"url": `#${section_key}-${topic_key}-${note_key}`
+					};
+
+					for (tag of el["hashtags"]) {
+						if (TAGS[tag] == undefined)
+							TAGS[tag] = [];
+						TAGS[tag].push(NOTES[el["name"]]);
 					}
 				}
 			}
