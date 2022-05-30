@@ -1,3 +1,3 @@
 # Топай по ссылке снизу
 
-[Вот сюда](https://emil0zulkarnaev.github.io/){:target="_blank"}
+<a target="_blank" href="https://emil0zulkarnaev.github.io/">Вот сюда</a>
