@@ -157,8 +157,13 @@ ul {
 }
 
 #finded {
+	position: absolute;
+	width: 200px;
 	height: 270px;
 	overflow: hidden;
+	background: white;
+
+	display: none;
 }
 #finded li, #same li {
 	margin: 0 auto;
@@ -188,8 +193,10 @@ ul {
 }
 
 #same {
-	position: absolute;
-	top: 510px;
+	/*position: absolute;*/
+	/*top: 232px;*/
+
+	margin-top: 20px;
 
 	width: 200px;
 
@@ -258,3 +265,7 @@ code, .code-line-numbers, .code-line-numbers-ul {
 	height: 16px;
 	display: block;
 }*/
+
+#nothing {
+	display: none;
+}

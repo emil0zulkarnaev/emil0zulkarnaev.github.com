@@ -6,7 +6,8 @@ $(()=> {
 		content = $("#content"),
 		content_list = $("#list-of-content"),
 		note 	= $("#note"),
-		finded  = $("#finded");
+		finded  = $("#finded"),
+		nothing = $("#nothing");
 
 	function error() {
 	}
@@ -38,16 +39,19 @@ $(()=> {
 
 		div.classList.add("hashtags");
 
-		if (path.length == 2) {
-			a.setAttribute("href", `/#${path[0]}-${path[1]}`);
-		}
+		let path_str = '';
+		if (typeof(path) == "string")
+			path_str = path;
+		else
+			path_str = path.length == 2 ? `/#${path[0]}-${path[1]}` : `/#${path[0]}-${path[1]}-${path[2]}`;
+
+		a.setAttribute("href", path_str);
 
 		h2.innerText = el["name"];
 		a.appendChild(h2);
 		li.appendChild(a);
 
-		if (path.length == 3) {
-			a.setAttribute("href", `/#${path[0]}-${path[1]}-${path[2]}`);
+		if (el["hashtags"] != undefined) {
 			for (let hashtag of el["hashtags"]) {
 				//console.log("hashtag", hashtag);
 				let li_ = document.createElement("li"),
@@ -132,10 +136,14 @@ $(()=> {
 		for (var section_key in DATA) {
 			if (section_key == "main") continue;
 			for (var topic_key in DATA[section_key]["topics"]) {
-				THEMES[DATA[section_key]["topics"][topic_key]["name"]] = `#${section_key}-${topic_key}`;
+				THEMES[DATA[section_key]["topics"][topic_key]["name"]] = {
+					"url": `#${section_key}-${topic_key}`,
+					"name": DATA[section_key]["topics"][topic_key]["name"]
+				}
 				for (var note_key in DATA[section_key]["topics"][topic_key]["notes"]) {
 					let el = DATA[section_key]["topics"][topic_key]["notes"][note_key];
 					NOTES[el["name"]] = {
+						"name": el["name"],
 						"hashtags": el["hashtags"],
 						"url": `#${section_key}-${topic_key}-${note_key}`
 					}
@@ -143,36 +151,78 @@ $(()=> {
 			}
 		}
 
-		find("");
+		build_finded_list(find(""));
 		reload();
 	});
 
-	// поиск тем и записей
-	function find(value) {
+	function build_finded_list(result) {
+		if (result.length == 0) {
+			finded.css("display", "none");
+			return;
+		}
+
+		finded.css("display", "block");
 		finded.html("");
 
-		let text = '';
+		let text 	= '',
+			class_ 	= '';
+
+		for (let row of result) {
+			class_ = row[0] == "theme" ? "finded-thema" : "finded-note"
+			text += `<a href="${row[1]}"><li class="${class_}">${row[2]}</li></a>`;
+		}
+
+		finded.html(text);
+	}
+
+	function build_finded_list_site(result) {
+		note.html("");
+		content_list.html("");
+		nothing.css("display", "none");
+
+		if (result.length == 0)
+			nothing.css("display", "block");
+		else
+			for (let el of result) {
+				let li = list(el[3], el[1]);
+				content_list.append(li);	
+			}
+	}
+
+	// поиск тем и записей
+	function find(value) {
+		if (value.trim() == "") return [];
+
+		let result = [];
 
 		for (let name in THEMES) {
 			if (name.toLowerCase().indexOf(value) != -1) {
-				text += `<a href="${THEMES[name]}"><li class="finded-thema">${name}</li></a>`;
+				result.push(["theme", THEMES[name]["url"], name, THEMES[name]]);
 			}
 		}
 
 		for (let name in NOTES) {
 			if (name .toLowerCase().indexOf(value) != -1) {
-				text += `<a href="${NOTES[name]["url"]}"><li class="finded-note">${name}</li></a>`;
+				result.push(["note", NOTES[name]["url"], name, NOTES[name]]);
 			}
 		}
 
-		finded.html(text);
+		return result;
 	}
 	
 	$("#search-input").on("input", (e) => {
-		find(e.target.value.toLowerCase());
+		build_finded_list(find(e.target.value.toLowerCase()));
+	});
+
+	$("#search-input").on("keydown", (e) => {
+		if(e.keyCode == 13) {
+			window.location.href = "/#find";
+			build_finded_list_site(find(e.target.value));
+		}
 	});
 	
 	$(window).on('hashchange', (e) => {
+		if (window.location.href.indexOf("#find") != -1) return;
 		reload();
 	});
 });
