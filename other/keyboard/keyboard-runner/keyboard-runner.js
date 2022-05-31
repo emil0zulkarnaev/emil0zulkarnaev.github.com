@@ -52,12 +52,13 @@ window.onload = () => {
 				keys_el.push(el);
 			el.innerText = String.fromCharCode(charCode).toLowerCase();
 		} 
-
-		for (let el of positions) {
-			el.innerHTML = '';
-			if (positions_el.length < LEN)
-				positions_el.push(el);
-		}
+		
+		// for (let el of positions) {
+		// 	el.innerHTML = '';
+		// 	if (positions_el.length < LEN)
+		// 		positions_el.push(el);
+		// }
+		if (positions_el.length == 0) for (let el of positions) positions_el.push(el);
 
 		let img = document.createElement("img");
 		img.setAttribute("src", "images/hero.gif");
