@@ -6,6 +6,7 @@
 	<link rel="stylesheet" href="keyboard-runner.css">
 </head>
 <body>
+	<div id="background"></div>
 	<div id="container">
 		<div id="level">
 			<img id="you-lose" src="images/you-lose.gif">
@@ -53,7 +54,11 @@
 			</div>
 			<div class="settings-group">
 				<input type="checkbox" id="settings-speed-freeze" value="1">
-				Зафиксировать скорость преследования
+				<label for="settings-speed-freeze" style="display: inline;">Зафиксировать скорость преследования</label>
+			</div>
+			<div class="settings-group">
+				<input type="checkbox" id="settings-sound" value="1">
+				<label for="settings-sound" style="display: inline;">Отключить то, что скорее всего вам будет мешать (но лучше не надо)</label>
 			</div>
 			Нажмите "Пробел" для продолжения игры после проигрыша
 		</div>

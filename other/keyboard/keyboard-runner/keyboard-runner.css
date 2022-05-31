@@ -15,8 +15,10 @@
 }
 
 #container {
+	position: relative;
 	margin: 0 auto;
 	width: 1000px;
+	z-index: 2;
 }
 
 #level {
@@ -105,4 +107,13 @@
 }
 .settings-group input {
 	padding: 5px 5px;
+}
+
+#background {
+	position: fixed;
+	top: 0; left: 0; right: 0; bottom: 0;
+	background: url(images/dead_fasterer_play.gif);
+	background-size: cover;
+	display: none;
+	z-index: 1;
 }

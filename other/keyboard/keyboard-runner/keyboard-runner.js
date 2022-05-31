@@ -7,7 +7,9 @@ window.onload = () => {
 		level_el  = document.getElementById("level-text"),
 		youLose_el = document.getElementById("you-lose"),
 		speed_input = document.getElementById("settings-speed"),
-		speed_freeze = document.getElementById("settings-speed-freeze");
+		speed_freeze = document.getElementById("settings-speed-freeze"),
+		settings_sound = document.getElementById("settings-sound"),
+		background = document.getElementById("background");
 
 	let KEYS = [],
 		LEN = 13,
@@ -15,14 +17,25 @@ window.onload = () => {
 		NEXT = 0,
 		badGuy_position = -750,
 		LEVEL = 0,
-		SPEED = 0,
-		SPEED_FREEZE = false;
+		SPEED = 5,
+		SPEED_FREEZE = false,
+		COUNT_COOL = 0,
+		WRONG_FLAG = false,
+		PLAY_SOUND = true;
 
 	speed_freeze.onchange = (e) => { SPEED_FREEZE = e.target.checked; }
 	speed_input.oninput = (e) => {
 		let value = Number(e.target.value);
 		if (isNaN(value)) return;
 		SPEED = value;
+	}
+	settings_sound.onchange = (e) => { PLAY_SOUND = !e.target.checked; }
+
+	function play(src) {
+		if (PLAY_SOUND) {
+			let audio = new Audio(src);
+			audio.play();
+		}
 	}
 
 	function prepare() {
@@ -34,12 +47,15 @@ window.onload = () => {
 		NEXT = 0;
 		badGuy_position = -750;
 		LEVEL += 1;
+		WRONG_FLAG = false;
 
 		level_el.innerText = LEVEL;
 		badGuy.style.marginLeft = "-750px";
 		badGuy.style.display = "none";
 		youLose_el.style.display = "none";
+		background.style.display = "none";
 
+		if (COUNT_COOL > 0) play(`./sound/${COUNT_COOL}.mp3`);
 
 		let min = 97,
 			max = 122;
@@ -52,7 +68,7 @@ window.onload = () => {
 				keys_el.push(el);
 			el.innerText = String.fromCharCode(charCode).toLowerCase();
 		} 
-		
+
 		// for (let el of positions) {
 		// 	el.innerHTML = '';
 		// 	if (positions_el.length < LEN)
@@ -90,12 +106,23 @@ window.onload = () => {
 		badGuy.style.marginLeft = `${badGuy_position}px`;
 		if (intersection()) {
 			STATUS = 2;
+			COUNT_COOL = 0;
 			let hero = document.querySelector(".hero");
 			hero.setAttribute("src", "images/the-end.gif");
 			hero.style.marginTop = "-25px";
 			level_el.innerText = "YOU LOSE";
 			youLose_el.style.display = "block";
-			setTimeout(() => { positions_el[NEXT].innerHTML = ''; }, 1000);
+			if (PLAY_SOUND) {
+				play("./sound/dead.mp3");
+				background.style.display = "block";
+			}
+			setTimeout(() => {
+				hero.remove();
+			}, 1000);
+
+			setTimeout(() => {
+				background.style.display = "none";
+			}, 6000);
 		}
 		else
 			setTimeout(move, 10);
@@ -118,6 +145,7 @@ window.onload = () => {
 			positions_el[NEXT].innerHTML = '';
 			if (NEXT+1 == positions_el.length) {
 				STATUS = 0;
+				if (!WRONG_FLAG) COUNT_COOL = COUNT_COOL == 8 ? 8 : COUNT_COOL + 1;
 				return true;
 			}
 			NEXT++;
@@ -126,6 +154,9 @@ window.onload = () => {
 			img.classList.add("hero");
 			positions_el[NEXT].appendChild(img);
 		} else {
+			play("./sound/wrong.mp3");
+			WRONG_FLAG = true;
+			COUNT_COOL = 0;
 			blink(50, 250);
 			keys_el[NEXT].style.background = "rgb(239 38 38 / 50%)";
 		}
