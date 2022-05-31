@@ -9,7 +9,10 @@ window.onload = () => {
 		speed_input = document.getElementById("settings-speed"),
 		speed_freeze = document.getElementById("settings-speed-freeze"),
 		settings_sound = document.getElementById("settings-sound"),
-		background = document.getElementById("background");
+		background = document.getElementById("background"),
+		settingsButton = document.getElementById("settings-button"),
+		settingsEl = document.getElementById("settings"),
+		settingsClose = document.getElementById("settings-close");
 
 	let KEYS = [],
 		LEN = 13,
@@ -30,6 +33,8 @@ window.onload = () => {
 		SPEED = value;
 	}
 	settings_sound.onchange = (e) => { PLAY_SOUND = !e.target.checked; }
+	settingsButton.onclick = (e) => { settingsEl.style.display = "block"; }
+	settingsClose.onclick = (e) => { settingsEl.style.display = "none"; }
 
 	function play(src) {
 		if (PLAY_SOUND) {

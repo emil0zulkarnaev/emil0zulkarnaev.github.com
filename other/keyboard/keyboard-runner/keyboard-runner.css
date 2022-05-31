@@ -96,10 +96,23 @@
 }
 
 #settings {
-	margin-top: 50px;
+	position: fixed;
+	padding: 10px;
+	top: 50px;
+	left: 50%;
+	margin-left: -225px;
+	width: 450px;
+
+	background: white;
+	box-shadow: 0 0 1px 0;
+
+	display: none;
 }
 .settings-group {
 	margin: 20px 0;
+}
+#settings .settings-group:first-child {
+	margin-top: 0;
 }
 .settings-group label {
 	margin-bottom: 5px;
@@ -107,6 +120,24 @@
 }
 .settings-group input {
 	padding: 5px 5px;
+}
+#settings .close {
+	position: absolute;
+	top: 2px;
+	right: 10px;
+
+	font-size: 25px;
+	cursor: pointer;
+}
+#settings-button {
+	margin-top: 10px;
+	padding: 5px 10px;
+
+	background: rgba(0,0,0, .2);
+	border-radius: 5px;
+	border: none;
+
+	cursor: pointer;
 }
 
 #background {
