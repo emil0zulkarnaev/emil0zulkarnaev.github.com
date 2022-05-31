@@ -95,6 +95,17 @@ window.onload = () => {
 			setTimeout(move, 10);
 	}
 
+	function blink(a, time) {
+		let timer_p = time/a;
+		blink_delay(timer_p, a);
+	}
+	function blink_delay(timer_p, a) {
+		badGuy_position  += 1;
+		a -= 1;
+		if (a > 0)
+			setTimeout(() => { blink_delay(timer_p, a); }, timer_p);
+	}
+
 	function next(charCode) {
 		if (charCode == KEYS[NEXT]) {
 			keys_el[NEXT].style.background = "rgb(43 255 89 / 50%)";
@@ -109,6 +120,7 @@ window.onload = () => {
 			img.classList.add("hero");
 			positions_el[NEXT].appendChild(img);
 		} else {
+			blink(50, 250);
 			keys_el[NEXT].style.background = "rgb(239 38 38 / 50%)";
 		}
 
