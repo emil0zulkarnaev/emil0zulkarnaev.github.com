@@ -5,7 +5,9 @@ window.onload = () => {
 		keys_el	  = [],
 		badGuy	  = document.getElementById("bad-guy"),
 		level_el  = document.getElementById("level-text"),
-		youLose_el = document.getElementById("you-lose");
+		youLose_el = document.getElementById("you-lose"),
+		speed_input = document.getElementById("settings-speed"),
+		speed_freeze = document.getElementById("settings-speed-freeze");
 
 	let KEYS = [],
 		LEN = 13,
@@ -13,17 +15,29 @@ window.onload = () => {
 		NEXT = 0,
 		badGuy_position = -750,
 		LEVEL = 0,
-		SPEED = 0;
+		SPEED = 0,
+		SPEED_FREEZE = false;
+
+	speed_freeze.onchange = (e) => { SPEED_FREEZE = e.target.checked; }
+	speed_input.oninput = (e) => {
+		let value = Number(e.target.value);
+		if (isNaN(value)) return;
+		SPEED = value;
+	}
 
 	function prepare() {
 		KEYS = [];
-		SPEED += 1;
+		if (!SPEED_FREEZE) {
+			SPEED += 1;
+			speed_input.value = SPEED;
+		}
 		NEXT = 0;
 		badGuy_position = -750;
 		LEVEL += 1;
 
 		level_el.innerText = LEVEL;
 		badGuy.style.marginLeft = "-750px";
+		badGuy.style.display = "none";
 		youLose_el.style.display = "none";
 
 		let min = 97,
@@ -62,6 +76,10 @@ window.onload = () => {
 
 	function move() {
 		if (STATUS == 0) return;
+		if (badGuy_position < -555)
+			badGuy.style.display = "none";
+		else
+			badGuy.style.display = "block";
 		badGuy_position += SPEED;
 		badGuy.style.marginLeft = `${badGuy_position}px`;
 		if (intersection()) {
@@ -101,13 +119,12 @@ window.onload = () => {
 	document.addEventListener("keypress", (e) => {
 		if (STATUS == 2 && e.charCode == 32) {
 			LEVEL = 0;
-			SPEED = 0;
+			if (!SPEED_FREEZE) SPEED = 0;
 			STATUS = 0;
 			prepare();
 			return;
 		}
 		if (STATUS == 0 && e.charCode == KEYS[0]) {
-			badGuy.style.display = "block";
 			STATUS = 1;
 			move();
 		}

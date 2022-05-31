@@ -14,9 +14,6 @@
 	user-select: none;
 }
 
-/*body {
-}*/
-
 #container {
 	margin: 0 auto;
 	width: 1000px;
@@ -74,8 +71,8 @@
 }
 
 #platform {
-	height: 10px;
-	border: #000 solid 1px;
+	height: 25px;
+	background: url(./images/bottom.png);
 }
 
 #keys li {
@@ -89,9 +86,23 @@
 
 #bad-guy {
 	position: fixed;
-	top: 200px;
+	top: 225px;
     left: 50%;
     margin-left: -750px;
 
     display: none;
+}
+
+#settings {
+	margin-top: 50px;
+}
+.settings-group {
+	margin: 20px 0;
+}
+.settings-group label {
+	margin-bottom: 5px;
+	display: block;
+}
+.settings-group input {
+	padding: 5px 5px;
 }
