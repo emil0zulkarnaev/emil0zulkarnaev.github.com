@@ -40,6 +40,7 @@ window.onload = () => {
 		badGuy.style.display = "none";
 		youLose_el.style.display = "none";
 
+
 		let min = 97,
 			max = 122;
 
@@ -52,7 +53,11 @@ window.onload = () => {
 			el.innerText = String.fromCharCode(charCode).toLowerCase();
 		} 
 
-		if (positions_el.length == 0) for (let el of positions) positions_el.push(el);
+		for (let el of positions) {
+			el.innerHTML = '';
+			if (positions_el.length < LEN)
+				positions_el.push(el);
+		}
 
 		let img = document.createElement("img");
 		img.setAttribute("src", "images/hero.gif");
