@@ -75,16 +75,7 @@ $(()=> {
 				});
 			// поиск по хэштегам
 			else {
-				let tag_name = current_note[1];
-				if (TAGS[tag_name] == undefined)
-					build_finded_list_site([]);
-				else {
-					let result = [];
-					for (let note of TAGS[tag_name]) {
-						result.push(["note", note["url"], note["name"], note]);
-					}
-					build_finded_list_site(result);
-				}
+				find_by_tag(current_note[1])
 			}
 		} else {
 			current_note = current_note.filter(value => typeof(value) == "string" && value != '');
@@ -162,6 +153,18 @@ $(()=> {
 		reload();
 	});
 
+	function find_by_tag(tag_name) {
+		if (TAGS[tag_name] == undefined)
+			build_finded_list_site([]);
+		else {
+			let result = [];
+			for (let note of TAGS[tag_name]) {
+				result.push(["note", note["url"], note["name"], note]);
+			}
+			build_finded_list_site(result);
+		}
+	}
+
 	function build_finded_list(result) {
 		if (result.length == 0) {
 			finded.css("display", "none");
@@ -224,7 +227,11 @@ $(()=> {
 	$("#search-input").on("keydown", (e) => {
 		if(e.keyCode == 13) {
 			window.location.href = "/#f%20i%20n%20d";
-			build_finded_list_site(find(e.target.value));
+			let value = e.target.value.trim();
+			if (value[0] == '#') {
+				find_by_tag(value.replace('#', ''));
+			} else
+				build_finded_list_site(find(e.target.value));
 		}
 	});
 	

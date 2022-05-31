@@ -1,0 +1,97 @@
+@font-face {
+	font-family: "Pangolin";
+	src: url(./../../../fonts/Pangolin-Regular.ttf);
+}
+@font-face {
+	font-family: "NovaMono-Regular";
+	src: url(./../../../fonts/NovaMono-Regular.ttf);
+}
+* {
+	margin:  0;
+	padding: 0;
+
+	font-family: "Pangolin";
+	user-select: none;
+}
+
+/*body {
+}*/
+
+#container {
+	margin: 0 auto;
+	width: 1000px;
+}
+
+#level {
+	margin-top: 100px;
+	text-align: center;
+	font-size: 70px;
+}
+#you-lose {
+	position: fixed;
+    top: 100px;
+    left: 50%;
+    margin-left: -250px;
+
+    width: 500px;
+    height: 250px;
+
+    display: none;
+}
+#level-text {
+	position: relative;
+
+	text-shadow: 0 0 11px black;
+	font-family: "NovaMono-Regular";
+}
+
+#main {
+}
+
+#main > * {
+	margin: 10px 0;
+}
+
+#main ul {
+	list-style-type: none;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+#main ul li {
+	width: 50px;
+	height: 50px;
+}
+
+#positions {
+	margin-top: 150px;
+}
+
+#positions img {
+	margin: 0 auto;
+	width: 100px;
+	display: block;
+}
+
+#platform {
+	height: 10px;
+	border: #000 solid 1px;
+}
+
+#keys li {
+	text-align: center;
+	font-size: 30px;
+	line-height: 50px;
+
+	box-shadow: 0 0 1px 0;
+	border-radius: 5px;
+}
+
+#bad-guy {
+	position: fixed;
+	top: 200px;
+    left: 50%;
+    margin-left: -750px;
+
+    display: none;
+}
