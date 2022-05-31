@@ -254,6 +254,9 @@ code, .code-line-numbers, .code-line-numbers-ul {
 #note p {
 	margin: 10px 0;
 }
+#note img {
+	max-width: 100%;
+}
 
 .code-line-numbers {
 	margin: 0 !important;
