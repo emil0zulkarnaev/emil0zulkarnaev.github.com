@@ -112,8 +112,9 @@
 #background {
 	position: fixed;
 	top: 0; left: 0; right: 0; bottom: 0;
-	background: url(images/dead_fasterer_play.gif);
+	background-image: url(images/dead_fasterer_play.gif);
 	background-size: cover;
+	background-position: center;
 	display: none;
 	z-index: 1;
 }

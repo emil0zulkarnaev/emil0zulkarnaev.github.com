@@ -53,6 +53,7 @@ window.onload = () => {
 		badGuy.style.marginLeft = "-750px";
 		badGuy.style.display = "none";
 		youLose_el.style.display = "none";
+		// background.style.background = "url()";
 		background.style.display = "none";
 
 		if (COUNT_COOL > 0) play(`./sound/${COUNT_COOL}.mp3`);
@@ -114,6 +115,7 @@ window.onload = () => {
 			youLose_el.style.display = "block";
 			if (PLAY_SOUND) {
 				play("./sound/dead.mp3");
+				// background.style.background = "url(images/dead.gif) cover ";
 				background.style.display = "block";
 			}
 			setTimeout(() => {
@@ -121,6 +123,7 @@ window.onload = () => {
 			}, 1000);
 
 			setTimeout(() => {
+				// background.style.background = "url()";
 				background.style.display = "none";
 			}, 6000);
 		}
