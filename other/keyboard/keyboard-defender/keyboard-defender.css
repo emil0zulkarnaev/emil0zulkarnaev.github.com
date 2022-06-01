@@ -12,6 +12,7 @@
 	padding: 0;
 
 	font-family: "Pangolin";
+	user-select: none;
 }
 
 #top {
@@ -110,4 +111,19 @@
 }
 #total-score {
 	font-size: 30px;
+}
+
+#language {
+	position: absolute;
+	top: 30px;
+	right: 20px;
+	padding: 5px 10px;
+
+	background: none;
+	border: none;
+
+	font-size: 20px;
+	color: rgba(0,0,0, .5);
+
+	cursor: pointer;
 }

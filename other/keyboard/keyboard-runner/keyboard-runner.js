@@ -12,7 +12,8 @@ window.onload = () => {
 		background = document.getElementById("background"),
 		settingsButton = document.getElementById("settings-button"),
 		settingsEl = document.getElementById("settings"),
-		settingsClose = document.getElementById("settings-close");
+		settingsClose = document.getElementById("settings-close"),
+		language = document.getElementById("language");
 
 	let KEYS = [],
 		LEN = 13,
@@ -24,6 +25,7 @@ window.onload = () => {
 		SPEED_FREEZE = false,
 		COUNT_COOL = 0,
 		WRONG_FLAG = false,
+		LANGUAGE = 'en'
 		PLAY_SOUND = true;
 
 	speed_freeze.onchange = (e) => { SPEED_FREEZE = e.target.checked; }
@@ -35,6 +37,21 @@ window.onload = () => {
 	settings_sound.onchange = (e) => { PLAY_SOUND = !e.target.checked; }
 	settingsButton.onclick = (e) => { settingsEl.style.display = "block"; }
 	settingsClose.onclick = (e) => { settingsEl.style.display = "none"; }
+
+	language.onclick = (e) => {
+		if (e.target.innerText == "ru") {
+			LANGUAGE = "en";
+			e.target.innerText = "en";
+		} else {
+			LANGUAGE = "ru";
+			e.target.innerText = "ru";
+		}
+
+		if (SPEED >= 1) SPEED -= 1;
+		LEVEL -= 1;
+		console.log("SPEED", SPEED);
+		prepare();
+	}
 
 	function play(src) {
 		if (PLAY_SOUND) {
@@ -63,8 +80,8 @@ window.onload = () => {
 
 		if (COUNT_COOL > 0) play(`./sound/${COUNT_COOL}.mp3`);
 
-		let min = 97,
-			max = 122;
+		let min = LANGUAGE == 'ru' ? 1072 : 97,
+			max = LANGUAGE == 'ru' ? 1103 : 122;
 
 		for (let el of keys) {
 			let charCode = Math.floor(Math.random()*(max-min)+min);
@@ -82,10 +99,12 @@ window.onload = () => {
 		// }
 		if (positions_el.length == 0) for (let el of positions) positions_el.push(el);
 
-		let img = document.createElement("img");
-		img.setAttribute("src", "images/hero.gif");
-		img.classList.add("hero");
-		positions_el[0].appendChild(img);
+		if (positions_el[0].querySelectorAll("img").length == 0) {
+			let img = document.createElement("img");
+			img.setAttribute("src", "images/hero.gif");
+			img.classList.add("hero");
+			positions_el[0].appendChild(img);
+		}
 	}
 
 	function intersection() {

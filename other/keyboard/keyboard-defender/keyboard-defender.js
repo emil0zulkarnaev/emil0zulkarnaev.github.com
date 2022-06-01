@@ -19,7 +19,8 @@ window.onload = () => {
 
 	let status = document.getElementById("status"),
 		top	   = document.getElementById("top"),
-		totalScore = document.getElementById("total-score");
+		totalScore = document.getElementById("total-score"),
+		language = document.getElementById("language");
 
 	function minus_heart() {
 		HEALTH -= 1;
@@ -124,6 +125,16 @@ window.onload = () => {
 	}
 
 	reset.onclick = (e) => restart();
+
+	language.onclick = (e) => {
+		if (e.target.innerText == "ru") {
+			LANGUAGE = "en";
+			e.target.innerText = "en";
+		} else {
+			LANGUAGE = "ru";
+			e.target.innerText = "ru";
+		}
+	}
 
 	weapon.focus();
 	restart();
