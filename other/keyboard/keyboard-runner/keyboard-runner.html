@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<meta http-equiv='cache-control' content='no-cache'>
+	<meta http-equiv='expires' content='0'>
+	<meta http-equiv='pragma' content='no-cache'>
 	<meta charset="UTF-8">
 	<title>Document</title>
 	<link rel="stylesheet" href="keyboard-runner.css">
@@ -61,6 +64,10 @@
 			<div class="settings-group">
 				<input type="checkbox" id="settings-sound" value="1">
 				<label for="settings-sound" style="display: inline;">Отключить то, что скорее всего вам будет мешать (но лучше не надо)</label>
+			</div>
+			<div class="settings-group">
+				<input type="checkbox" id="settings-error-lose" value="1">
+				<label for="settings-error-lose" style="display: inline;">Ошибка = проигрыш</label>
 			</div>
 			Нажмите "Пробел" для продолжения игры после проигрыша
 			<div id="settings-close" class="close">x</div>

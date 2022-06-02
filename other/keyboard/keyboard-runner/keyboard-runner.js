@@ -13,6 +13,7 @@ window.onload = () => {
 		settingsButton = document.getElementById("settings-button"),
 		settingsEl = document.getElementById("settings"),
 		settingsClose = document.getElementById("settings-close"),
+		settingsErrorLose = document.getElementById("settings-error-lose"),
 		language = document.getElementById("language");
 
 	let KEYS = [],
@@ -26,7 +27,8 @@ window.onload = () => {
 		COUNT_COOL = 0,
 		WRONG_FLAG = false,
 		LANGUAGE = 'en'
-		PLAY_SOUND = true;
+		PLAY_SOUND = true,
+		ERROR_LOSE = false;
 
 	speed_freeze.onchange = (e) => { SPEED_FREEZE = e.target.checked; }
 	speed_input.oninput = (e) => {
@@ -35,6 +37,7 @@ window.onload = () => {
 		SPEED = value;
 	}
 	settings_sound.onchange = (e) => { PLAY_SOUND = !e.target.checked; }
+	settingsErrorLose.onchange = (e) => { ERROR_LOSE = e.target.checked; }
 	settingsButton.onclick = (e) => { settingsEl.style.display = "block"; }
 	settingsClose.onclick = (e) => { settingsEl.style.display = "none"; }
 
@@ -121,8 +124,31 @@ window.onload = () => {
 		return hcoords.x <= dnask && dnask <= hcoords.x+hcoords.width ? true : false;
 	}
 
+	function lose() {
+		STATUS = 2;
+		COUNT_COOL = 0;
+		let hero = document.querySelector(".hero");
+		hero.setAttribute("src", "images/the-end.gif");
+		hero.style.marginTop = "-25px";
+		level_el.innerText = "YOU LOSE";
+		youLose_el.style.display = "block";
+		if (PLAY_SOUND) {
+			play("./sound/dead.mp3");
+			// background.style.background = "url(images/dead.gif) cover ";
+			background.style.display = "block";
+		}
+		setTimeout(() => {
+			hero.remove();
+		}, 1000);
+
+		setTimeout(() => {
+			// background.style.background = "url()";
+			background.style.display = "none";
+		}, 6000);
+	}
+
 	function move() {
-		if (STATUS == 0) return;
+		if (STATUS == 0 || STATUS == 2) return;
 		if (badGuy_position < -555)
 			badGuy.style.display = "none";
 		else
@@ -130,26 +156,7 @@ window.onload = () => {
 		badGuy_position += SPEED;
 		badGuy.style.marginLeft = `${badGuy_position}px`;
 		if (intersection()) {
-			STATUS = 2;
-			COUNT_COOL = 0;
-			let hero = document.querySelector(".hero");
-			hero.setAttribute("src", "images/the-end.gif");
-			hero.style.marginTop = "-25px";
-			level_el.innerText = "YOU LOSE";
-			youLose_el.style.display = "block";
-			if (PLAY_SOUND) {
-				play("./sound/dead.mp3");
-				// background.style.background = "url(images/dead.gif) cover ";
-				background.style.display = "block";
-			}
-			setTimeout(() => {
-				hero.remove();
-			}, 1000);
-
-			setTimeout(() => {
-				// background.style.background = "url()";
-				background.style.display = "none";
-			}, 6000);
+			lose();
 		}
 		else
 			setTimeout(move, 10);
@@ -186,6 +193,10 @@ window.onload = () => {
 			COUNT_COOL = 0;
 			blink(50, 250);
 			keys_el[NEXT].style.background = "rgb(239 38 38 / 50%)";
+
+			if (ERROR_LOSE) {
+				lose();
+			}
 		}
 
 		return false;
