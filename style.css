@@ -257,6 +257,10 @@ code, .code-line-numbers, .code-line-numbers-ul {
 #note img {
 	max-width: 100%;
 }
+#note ul {
+	padding-left: 20px;
+	list-style-type: auto;
+}
 
 .code-line-numbers {
 	margin: 0 !important;
