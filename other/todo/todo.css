@@ -1,0 +1,320 @@
+@font-face {
+	font-family: todoFont;
+	src: url(todo-font-2.ttf);
+}
+
+* {
+	margin: 0;
+	padding: 0;
+
+	font-family: todoFont;
+
+	user-select: none;
+}
+
+.middle-c {
+	color: #f7d000;
+}
+
+.high-c {
+	color: #f74700;
+}
+
+.danger-c {
+	color: #00c11a;
+}
+
+.container {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.top {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+/*	width: 100%;*/
+	padding: 5px 0;
+
+	height: 50px;
+	box-shadow: 1px 0 1px 0;
+
+	background: rgb(32,59,255);
+	background: linear-gradient(180deg, rgba(32,59,255,0.8015581232492998) 0%, rgba(0,202,255,0.8267682072829132) 88%);
+
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+
+	z-index: 10;
+
+	transition: .2s;
+}
+
+.top * {
+	border-radius: 5px;
+	border: none;
+}
+
+.top-add, 
+.top-search {
+	position: relative;
+	width: 100%;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.top-search { display: none; }
+
+#todo_input, #todo_search_name {
+	padding: 7px;
+	max-width: 60%;
+	min-width: 60%;
+	max-height: 30px;
+	min-height: 30px;
+
+	box-sizing: border-box;
+}
+
+#todo_date, #todo_importance, #todo_search_date, #todo_search_importance {
+	padding: 3px;
+
+	width: 14%;
+}
+
+#todo-add-button, 
+#todo-search-button, 
+#todo-add-button-close {
+	position: absolute;
+	top: calc(100% + 3px);
+	left: 50%;
+	margin-left: -50px;
+/*	padding: 5px 10px;*/
+
+	width: 100px;
+
+	appearance: button;
+	background-color: #1899D6;
+	border: solid transparent;
+	border-radius: 16px;
+	border-width: 0 0 4px;
+	box-sizing: border-box;
+	color: #FFFFFF;
+/*	cursor: pointer;*/
+	display: inline-block;
+	font-size: 15px;
+	font-weight: 700;
+	letter-spacing: .8px;
+	line-height: 20px;
+	outline: none;
+	overflow: visible;
+	padding: 7px 10px;
+	text-align: center;
+	text-transform: uppercase;
+	touch-action: manipulation;
+	transform: translateZ(0);
+	transition: filter .2s;
+	user-select: none;
+	-webkit-user-select: none;
+	vertical-align: middle;
+	white-space: nowrap;
+
+	display: none;
+
+	/*background: #7dff88;
+	border: none;
+	border-radius: 5px;
+	box-shadow: 0 0 .5px 0;
+
+	font-weight: bold;*/
+}
+
+#todo-add-button-close {
+	left: calc(50% + 180px);
+	width: 50px;
+
+	background-color: #d6181a;
+}
+
+#todo-search-button {
+	left: calc(50% + 105px);
+	width: 70px;
+
+	background-color: #ffc500;
+}
+
+#todo-add-button:after,
+#todo-search-button:after,
+#todo-add-button-close:after {
+	background-clip: padding-box;
+	background-color: #1CB0F6;
+	border: solid transparent;
+	border-radius: 16px;
+	border-width: 0 0 4px;
+	bottom: -4px;
+	content: "";
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+	z-index: -1;
+}
+
+#todo-add-button-close:after {
+	background-color: #ff3b3d;
+}
+
+#todo-search-button:after {
+	background-color: #ffd444;
+}
+
+#todo-add-button:main,
+#todo-add-button:focus,
+#todo-search-button:main,
+#todo-search-button:focus,
+#todo-add-button-close:main,
+#todo-add-button-close:focus {
+	user-select: auto;
+}
+
+
+#todo-add-button:hover:not(:disabled),
+#todo-search-button:hover:not(:disabled),
+#todo-add-button-close:hover:not(:disabled) {
+ filter: brightness(1.1);
+}
+
+#todo-add-button:disabled,
+#todo-search-button:disabled,
+#todo-add-button-close:disabled {
+ cursor: auto;
+}
+
+#todo-add-button:active:after,
+#todo-search-button:active:after,
+#todo-add-button-close:active:after {
+ border-width: 0 0 0px;
+}
+
+#todo-add-button:active,
+#todo-search-button:active,
+#todo-add-button-close:active
+{
+ padding-bottom: 10px;
+}
+
+.top-add-adding {
+	height: 250px;
+
+	transition: .2s;
+}
+
+.top-add-adding .top-add {
+	height: 90%;
+
+	flex-direction: column;
+
+	transition: .2s;
+}
+.top-add-adding .top-add #todo_input {
+	max-width: 90%;
+	min-width: 90%;
+
+	min-height: 50%;
+
+	transition: .2s;
+}
+
+.top-add-adding .top-add #todo_date,
+.top-add-adding .top-add #todo_importance {
+	width: 30%;
+
+	transition: .2s;
+}
+
+
+
+
+#list {
+	margin-top: 85px;
+}
+
+.todo-group {
+	position: relative;
+	margin: 5px;
+	margin-top: 25px;
+	padding: 10px;
+
+	box-sizing: border-box;
+	border-radius: 5px;
+	border: solid rgb(200,200,200) 1px;
+}
+
+.todo-group:first-child {
+	margin-top: 5px;
+}
+
+.todo-top-date {
+	font-size: 12px;
+	color: rgb(180, 180, 180);
+}
+
+.todo-top-hashtags {
+	margin-top: 15px;
+
+	font-size: 14px;
+
+	display: flex;
+	flex-directon: row;
+	justify-content: start;
+	flex-wrap: wrap;
+
+	gap: 5px;
+}
+
+.todo-header {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.todo-p {
+	margin: 10px 0;
+}
+
+.todo-list-element-group {
+	margin: 5px 0;
+
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+}
+
+.todo-group-manage {
+	position: absolute;
+	top: -16px;
+	right: 10px;
+	padding: 5px;
+	width: 85px;
+
+	box-sizing: border-box;
+	border-radius: 5px;
+	box-shadow: 0 0 3px 0;
+
+	background: white;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+
+.todo-group-manage img {
+	width: 20px;
+}

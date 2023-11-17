@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="todo.css">
+</head>
+<body>
+	<div class="container">
+		<div class="top">
+			<div class="top-add">
+				<textarea id="todo_input" placeholder="Что вы хотите сделать?"></textarea>
+				<input type="date" id="todo_date">
+				<select id="todo_importance">
+					<option value="1">Не срочно</option>
+					<option value="2">Срочно</option>
+					<option value="3">Очень срочно</option>
+					<option value="4">Супер важно</option>
+				</select>
+				<button id="todo-add-button">Добавить</button>
+				<button id="todo-search-button">Найти</button>
+				<button id="todo-add-button-close">X</button>
+			</div>
+		</div>
+
+		<div id="list">
+			<!-- <div class="todo-group">
+				<div class="todo-group-manage">
+					<img src="edit.png" alt="">
+					<img src="trash.png" alt="">
+				</div>
+				<div class="todo-top-date">27.03.2345</div>
+				<div class="todo-header">Some header</div>
+				<div class="todo-p">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sapiente dolor eum, officia ipsam quia rerum ipsa alias est culpa neque.</div>
+				<div class="todo-list">
+					<div class="todo-list-element-group">
+						<input id="some-id-1" type="checkbox" class="todo-list-element-checkbox">
+						<label for="some-id-1" class="todo-list-element-checkbox-label">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Earum aliquid dolore modi nulla quibusdam, ex.</label>
+					</div>
+					<div class="todo-list-element-group">
+						<input type="checkbox" class="todo-list-element-checkbox">
+						<div class="todo-list-element-checkbox-label">Some cool shit</div>
+					</div>
+					<div class="todo-list-element-group">
+						<input type="checkbox" class="todo-list-element-checkbox">
+						<div class="todo-list-element-checkbox-label">Some cool shit</div>
+					</div>
+					<div class="todo-list-element-group">
+						<input type="checkbox" class="todo-list-element-checkbox">
+						<div class="todo-list-element-checkbox-label">Some cool shit</div>
+					</div>
+					<div class="todo-list-element-group">
+						<input type="checkbox" class="todo-list-element-checkbox">
+						<div class="todo-list-element-checkbox-label">Some cool shit</div>
+					</div>
+				</div>
+				<div class="todo-top-hashtags">
+					<div class="todo-top-hashtag">#some_shit</div>
+					<div class="todo-top-hashtag">#some_cool_shit</div>
+					<div class="todo-top-hashtag">#some_very_cool_shit</div>
+				</div>
+			</div> -->
+		</div>
+	</div>
+
+	<script src="todo.js"></script>
+</body>
+</html>
