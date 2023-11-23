@@ -433,23 +433,16 @@ function newSocket() {
 	return socket;
 }
 
-function create(element_name, classes, attrs, content) {
-	let result = document.createElement(element_name);
-	result.innerText = content;
-
-	return result;
-}
-
 window.addEventListener("load", () => {
 	let tg = window.Telegram.WebApp;
 
 	tg.expand();
 
-	document.appendChild(create("h3", [], {}, "hello"));
+	alert("hello");
 
 	USER_ID = String(tg.initDataUnsafe.user.id);
 
-	document.appendChild(create("h3", [], {}, USER_ID));	
+	alert("user_id = ", USER_ID);
 	
 	SOCKET = newSocket();
 });
