@@ -433,6 +433,13 @@ function newSocket() {
 	return socket;
 }
 
+function create(element_name, classes, attrs, content) {
+	let result = document.createElement(element_name);
+	result.innerText = content;
+
+	return result;
+}
+
 window.addEventListener("load", () => {
 	let tg = window.Telegram.WebApp;
 
