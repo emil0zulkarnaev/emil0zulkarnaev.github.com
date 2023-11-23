@@ -1,0 +1,97 @@
+.img-animation-stone {
+	width: 120px;
+}
+
+.round-result-animation-stone-breaks-scissors .img-animation-stone {
+	top: 65%;
+	left: 200%;
+
+	animation-name: stone-fly-animation;
+	animation-duration: 2s;
+	animation-direction: normal;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+
+.img-animation-stone img {
+	width: 100%;
+}
+.round-result-animation-stone-breaks-scissors .img-animation-stone img {
+	animation-name: stone-rotate-animation;
+	animation-duration: 1s;
+	animation-direction: normal;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+
+@keyframes stone-fly-animation {
+	100% {
+		left: -200%;
+	}
+}
+
+@keyframes stone-rotate-animation {
+	100% {
+		transform: rotate(-360deg);
+	}
+}
+
+
+.round-result-animation-stone-breaks-scissors
+.img-animation-scissors {
+	position: absolute;
+	top: 60%;
+	left: 50%;
+	margin-left: -67.5px;
+}
+
+.round-result-animation-stone-breaks-scissors
+.img-animation-scissors img[part="one"] {
+	animation-name: scissors-breaks-one;
+	animation-duration: 2s;
+	animation-direction: normal;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+
+.round-result-animation-stone-breaks-scissors
+.img-animation-scissors img[part="two"] {
+	animation-name: scissors-breaks-two;
+	animation-duration: 2s;
+	animation-direction: normal;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+
+@keyframes scissors-breaks-one {
+	40% {
+		left: 0;
+		margin-left: 35px;
+		transform: none;
+	}
+	65% {
+		left: 50px;
+		margin-left: 35px;
+		transform: rotateY(360deg);
+	}
+	100% {
+		left: 0;
+		margin-left: 35px;
+		transform: none;
+	}
+}
+
+@keyframes scissors-breaks-two {
+	40% {
+		left: 0;
+		transform: none;
+	}
+	65% {
+		left: -50px;
+		transform: rotateY(360deg);
+	}
+	100% {
+		left: 0;
+		transform: none;
+	}
+}

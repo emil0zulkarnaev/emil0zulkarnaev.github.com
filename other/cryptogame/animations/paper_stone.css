@@ -1,0 +1,66 @@
+.img-animation-paper-s {
+	width: 130px;
+}
+
+.round-result-animation-paper-on-stone .img-animation-paper-s {
+	top: 60%;
+	left: 50%;
+	margin-left: -65px;
+}
+
+.img-animation-paper-s img {
+	width: 100%;
+}
+
+.round-result-animation-paper-on-stone .img-animation-paper-s img {
+	animation-name: paper-punch;
+	animation-duration: 2s;
+	animation-direction: normal;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+	transform-origin: -100% center;
+}
+
+@keyframes paper-punch {
+	30% {
+		transform: rotate(-60deg);
+	}
+	40% {
+		transform: rotate(45deg);	
+	}
+}
+
+.round-result-animation-paper-on-stone .img-animation-stone {
+	top: 60%;
+	left: 200%;
+
+	animation-name: stone-fail-fly;
+	animation-duration: 2s;
+	animation-direction: normal;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+
+.round-result-animation-paper-on-stone .img-animation-stone img {
+	animation-name: stone-rotate-animation;
+	animation-duration: 1s;
+	animation-direction: normal;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+
+@keyframes stone-fail-fly {
+	30% {
+		top: 60%;
+		left: 40%;
+	}
+
+	60% {
+		top: 400%;
+		left: 40%;
+	}
+
+	80% {
+
+	}
+}

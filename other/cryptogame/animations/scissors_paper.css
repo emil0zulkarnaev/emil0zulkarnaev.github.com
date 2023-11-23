@@ -1,0 +1,135 @@
+.round-result-animation-scissors-cut-paper .img-animation-scissors {
+	position: absolute;
+	top: 80%;
+	left: 50%;
+	margin-left: -67.5px;
+
+	width: 135px;
+	height: 144px;
+
+	animation-name: scissors-to-top;
+	animation-duration: 2s;
+	animation-direction: alternate;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+
+.img-animation-scissors img {
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	width: 100px;
+}
+
+.img-animation-scissors img[part="one"] {
+	left: 35px;
+}
+
+.round-result-animation-scissors-cut-paper .img-animation-scissors img[part="one"] {
+	animation-name: scissors-cut-one;
+	animation-duration: .2s;
+	animation-direction: alternate;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+
+.round-result-animation-scissors-cut-paper .img-animation-scissors img[part="two"] {
+	animation-name: scissors-cut-two;
+	animation-duration: .2s;
+	animation-direction: alternate;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+
+	z-index: 2;
+}
+
+@keyframes scissors-to-top {
+	50% {
+		top: 0;
+	}
+	100% {
+		top: 80%;
+	}
+}
+
+@keyframes scissors-cut-one {
+	100% {
+		transform: rotate(-15deg);
+	}
+}
+@keyframes scissors-cut-two {
+	100% {
+		transform: rotate(15deg);
+	}
+}
+
+
+.round-result-animation-scissors-cut-paper .img-animation-paper {
+	position: absolute;
+	top: 100px;
+	left: 50%;
+	margin-left: -43.5px;
+
+	width: 87px;
+
+}
+
+.img-animation-paper img {
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	width: 50px;
+}
+
+.round-result-animation-scissors-cut-paper .img-animation-paper img[part="one"] {
+	animation-name: cut-paper-one;
+	animation-duration: 2s;
+	animation-direction: normal;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+
+	z-index: 1;
+}
+
+.img-animation-paper img[part="two"] {
+	margin-left: 37px;
+}
+
+.round-result-animation-scissors-cut-paper .img-animation-paper img[part="two"] {
+	animation-name: cut-paper-two;
+	animation-duration: 2s;
+	animation-direction: normal;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+
+@keyframes cut-paper-one {
+	40% {
+		left: 0;
+		transform: none;
+	}
+	50% {
+		left: -30px;
+		transform: rotate(-15deg);
+	}
+	90% {
+		left: -30px;
+		transform: rotate(-15deg);
+	}
+}
+@keyframes cut-paper-two {
+	40% {
+		left: 0;
+		transform: none;
+	}
+	50% {
+		left: 30px;
+		transform: rotate(15deg);
+	}
+	90% {
+		left: 30px;
+		transform: rotate(15deg);
+	}
+}

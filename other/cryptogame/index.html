@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<title>Document</title>
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="animations/scissors_paper.css">
+	<link rel="stylesheet" href="animations/stone_scissors.css">
+	<link rel="stylesheet" href="animations/paper_stone.css">
+	<link rel="stylesheet" href="animations/paper_stone.css">
+</head>
+<body>
+	<div class="container">
+
+		<!-- !!! ОСНОВНОЕ ОКНО -->
+		<div class="window main-window column" window="main">
+			<div class="main-window-middle column">
+				<div class="start-game">Играть</div>
+				<div class="volume-role">
+					<div class="role-value" role-value="value-0">0 ton</div>
+					<div class="role-value" role-value="value-0.1">0.1 ton</div>
+					<div class="role-value" role-value="value-0.5">0.5 ton</div>
+					<div class="role-value" role-value="value-1">1 ton</div>
+					<div class="role-value" role-value="value-5">5 ton</div>
+					<div class="role-value" role-value="value-10">10 ton</div>
+				</div>
+			</div>
+			<div class="main-window-bottom-buttons">
+				<div class="main-window-bottom-buttons-helper main-window-bottom-buttons-helper-non-vision"></div>
+				<div class="main-window-bottom-buttons-img row">
+					<img src="img/crypto.png" alt="" class="crypto-window-view">
+					<img src="img/rules.png" alt="" class="rules-window-view">
+					<img src="img/settings.png" alt="" class="settings-window-view">
+				</div>
+			</div>
+		</div>
+
+
+		<!-- !!! ОКНО ПОИСКА ОППОНЕНТА -->
+		<div class="window finding-game-window column" window="find">
+			<div class="finding-game column">
+				<div class="finding-game-title">Поиск игры...</div>
+				<div class="finding-images-animation">
+					<img src="img/stone.png" alt="" class="finding-images-animation-stone">
+					<img src="img/scissors.png" alt="" class="finding-images-animation-scissors">
+					<img src="img/paper.png" alt="" class="finding-images-animation-paper">
+				</div>
+			</div>
+		</div>
+
+
+		<!-- !!! МЕЖРАУНДОВОЕ ОКНО -->
+		<div class="window between-rounds-window column" window="between">
+			<div class="next-round-number">5 РАУНД<br>ПРИГОТОВТЕСЬ</div>
+			<div class="current-rounds-score">2 победы<br>2 проигрыша</div>
+			<!-- <div class="cheer-up">Ты не плохо сыграл, однако сейчас подумай, что может сделать противник, когда зажат в угол?</div> -->
+			<div class="between-rounds-timer row-timer">
+				<div class="row-timer-timer">4 сек.</div>
+				<div class="row-timer-view"></div>
+			</div>
+		</div>
+
+
+		<!-- !!! ОКНО РАУНДА -->
+		<div class="window round-window column" window="round">
+			<div class="current-round-number row-timer">
+				<div class="row-timer-timer">5 РАУНД</div>
+				<div class="row-timer-view"></div>
+			</div>
+			<div class="opponent-statistics">
+				<div class="opponent-statistics-header">Статистика противника <br> в этом раунде</div>
+				<div class="opponent-statistics-elements">
+					<div class="opponent-statistics-elements-element" el="scissors">
+						<div class="opponent-statistics-elements-element-title">Ножницы</div>
+						<div class="opponent-statistics-elements-element-percent">50%</div>
+					</div>
+					<div class="opponent-statistics-elements-element" el="stone">
+						<div class="opponent-statistics-elements-element-title">Камень</div>
+						<div class="opponent-statistics-elements-element-percent">50%</div>
+					</div>
+					<div class="opponent-statistics-elements-element" el="paper">
+						<div class="opponent-statistics-elements-element-title">Бумага</div>
+						<div class="opponent-statistics-elements-element-percent">50%</div>
+					</div>
+				</div>
+			</div>
+			<div class="round-rounds-score">
+				<div class="round-rounds-scored-win">
+					<div class="round-rounds-scored-win-title">Побед</div>
+					<div class="round-rounds-scored-win-value">2</div>
+				</div>
+				<div class="round-rounds-scored-lose">
+					<div class="round-rounds-scored-lose-title">Проигрышей</div>
+					<div class="round-rounds-scored-lose-value">1</div>
+				</div> 
+			</div>
+			<div class="moves">
+				<div class="moves-title make-a-move">Сделайте свой ход</div>
+				<div class="moves-img">
+					<img src="img/stone.png" class="stone" weapon="stone">
+					<img src="img/scissors.png" class="scissors" weapon="scissors">
+					<img src="img/paper.png" class="paper" weapon="paper">
+				</div>
+			</div>
+		</div>
+
+		<!-- !!! ОКНО РЕЗУЛЬТАТОВ РАУНДА -->
+		<div class="window round-result-window column" window="round-result">
+
+			<div class="round-result-animation round-result-animation-scissors-cut-paper">
+
+				<img src="img/stone.png" alt="">
+				<img src="img/scissors.png" alt="">
+				<img src="img/paper.png" alt="">
+
+			</div>
+
+			<div class="round-result-animation round-result-animation-stone-breaks-scissors">
+
+				<div class="img-animation-group img-animation-scissors">
+					<img src="img/scissors-one.png" part="one"alt="">
+					<img src="img/scissors-two.png" part="two" alt="">
+				</div>
+
+				<div class="img-animation-group img-animation-stone">
+					<img src="img/mini-stone.png" part="one"alt="">
+				</div>
+
+			</div>
+
+			<div class="round-result-animation round-result-animation-paper-on-stone">
+
+				<div class="img-animation-group img-animation-stone">
+					<img src="img/mini-stone.png" part="one"alt="">
+				</div>
+
+				<div class="img-animation-group img-animation-paper-s">
+					<img src="img/paper.png" part="one"alt="">
+				</div>
+
+			</div>
+
+			<div class="round-result-animation round-result-animation-draw">
+
+				<div class="img-animation-group img-animation-stone">
+					<img src="img/mini-stone.png" part="one"alt="">
+				</div>
+
+				<div class="img-animation-group img-animation-paper-s">
+					<img src="img/paper.png" part="one"alt="">
+				</div>
+
+			</div>
+
+			<div class="round-result round-result-win">Победа!</div>
+		</div>
+
+
+		<!-- !!! ОКНО РЕЗУЛЬТАТА ИГРЫ -->
+		<div class="window game-result-window column" window="game-result">
+			<div class="game-result">
+				<div class="game-result-result">Победа!</div>
+				<div class="game-result-score">2 из 3</div>
+			</div>
+				<div class="game-result-additional">
+					<!-- Вы обладатель 3 ton -->
+					Не унывайте, учитесь, <br>и всё получится!
+				</div>
+			<div class="game-result-to-game column">
+				<div class="start-game next-game">Играть <br> ещё раз</div>
+				<div class="volume-role">
+					<div class="role-value" role-value="value-0">0 ton</div>
+					<div class="role-value" role-value="value-0.1">0.1 ton</div>
+					<div class="role-value" role-value="value-0.5">0.5 ton</div>
+					<div class="role-value" role-value="value-1">1 ton</div>
+					<div class="role-value" role-value="value-5">5 ton</div>
+					<div class="role-value" role-value="value-10">10 ton</div>
+				</div>
+			</div>
+			<div class="main-window-bottom-buttons">
+				<div class="main-window-bottom-buttons-helper main-window-bottom-buttons-helper-non-vision"></div>
+				<div class="main-window-bottom-buttons-img row">
+					<img src="img/crypto.png" alt="" class="crypto-window-view">
+					<img src="img/rules.png" alt="" class="rules-window-view">
+					<img src="img/settings.png" alt="" class="settings-window-view">
+				</div>
+			</div>
+		</div>
+
+
+		<!-- !!! УКАЗАНИЕ АВТОРСТВА -->
+		<div class="window autor-window column" window="autors">
+			<h3>Ссылки на авторов ресурсов</h3>
+			<div class="hrefs column">
+				<a href="https://www.flaticon.com/ru/free-icons/" title="рок иконки">Рок иконки от Freepik - Flaticon</a>
+				<a href="https://www.flaticon.com/ru/free-icons/" title=" иконки"> иконки от Freepik - Flaticon</a>
+				<a href="https://www.flaticon.com/ru/free-icons/" title=" иконки"> иконки от Freepik - Flaticon</a>
+			</div>
+		</div>
+
+		<!-- !!! ОШИБКА -->
+		<div class="window error-window column" window="error">
+			<h3>ОШИБКА...</h3>
+		</div>
+
+		<!-- !!! ОШИБКА ИГРЫ -->
+		<div class="window game-error-window column" window="game-error">
+			<h3>ОШИБКА ВО ВРЕМЯ ИГРЫ...</h3>
+			<span>Общее количество ничьих не может быть больше 10, в противном случае объёмы будут возвращены назад пользователям и игра закончится</span>
+			<button class="next-game">Сыграть ещё раз</button>
+		</div>
+
+	<script src="https://telegram.org/js/telegram-web-app.js"></script>
+	<script src="js/main-window-helper.js"></script>
+	<script src="js/windows.js"></script>
+	<script src="js/game.js"></script>
+	</div>
+</body>
+</html>

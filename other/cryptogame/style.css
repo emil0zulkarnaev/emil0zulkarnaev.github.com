@@ -1,0 +1,667 @@
+/*@font-face {
+	font-family: FuzzyBubblesBold;
+	src: url(fonts/FuzzyBubbles-Bold.ttf);
+}*/
+@font-face {
+	font-family: NeuchaRegular;
+	src: url(fonts/Neucha-Regular.ttf);
+}
+
+* {
+	margin: 0;
+	padding: 0;
+
+	font-family: NeuchaRegular;
+
+	user-select: none;
+}
+
+.container {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.column, .row, .radio-button {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.column {
+	flex-direction: column;
+}
+
+.row {
+	flex-directoin: row;
+}
+
+.column-between {
+	justify-content: space-between;
+}
+
+.row-between {
+	justify-content: space-between;
+}
+
+.window {
+/*	padding: 20px;*/
+
+	box-sizing: border-box;
+
+	width: 100%;
+	height: 100%;
+
+	display: none;
+}
+
+.window > * {
+	width: 100%;
+
+	/*[Временно]*/
+/*	box-shadow: 0 0 5px 0;*/
+}
+
+.window * {
+	text-align: center;
+}
+
+.current-window {
+	display: flex;
+}
+
+
+/* !!! ОСНОВНОЕ ОКНО */
+
+.main-window:before {
+	content: ' ';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+    background: url(img/main.png);
+    background-position: top;
+    background-size: auto;
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
+.main-window > * {
+	z-index: 2;
+}
+
+.start-game {
+	padding: 60px;
+	padding-bottom: 30px;
+
+	font-size: 60px;
+	text-shadow: 0 0 9px #797979;
+	letter-spacing: 10px;
+	font-family: NeuchaRegular;
+}
+
+.volume-role {
+	width: 70%;
+
+	display: flex;
+
+	scroll-snap-type: x mandatory;
+	overflow-x: scroll;
+
+	gap: 20px;
+}
+
+.role-value {
+	padding: 30px 0;
+	flex: 0 0 100%;
+	overflow: hidden;
+	scroll-snap-align: center;
+
+	font-size: 30px;
+	letter-spacing: 3px;
+	font-family: NeuchaRegular;
+	font-weight: bold;
+}
+
+.main-window-bottom-buttons {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	padding: 10px;
+	padding-bottom: 15px;
+
+	box-sizing: border-box;
+}
+
+.main-window-bottom-buttons-helper {
+	position: absolute;
+    bottom: 77px;
+    margin-left: 2.5%;
+    padding: 10px;
+
+    width: 90%;
+    box-sizing: border-box;
+    box-shadow: 0 0 1px 0;
+
+    border-radius: 5px;
+    transition: 1s;
+}
+
+.main-window-bottom-buttons-helper-non-vision {
+	opacity: 0;
+	transition: 1s;
+}
+
+.main-window-bottom-buttons-img {
+	width: 100%;
+	height: 100%;
+}
+
+.main-window-bottom-buttons-img-for-helper {
+	box-shadow: 0 0 1px 1px rgb(100, 100, 100) inset;
+	border-radius: 10px;
+
+	transition: 1s;
+}
+
+.main-window-bottom-buttons-img img {
+	padding: 5px;
+	width: 40px;
+
+	opacity: 0.7;
+}
+
+
+/* !!! ОКНО ПОИСКА ОППОНЕНТА */
+
+.finding-game {
+	height: 60%;
+}
+.finding-game-title {
+	width: 177px;
+
+	font-size: 35px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    opacity: .6;
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    animation-name: finding-game-title-open;
+	animation-duration: 1s;
+	animation-iteration-count: infinite;
+	animation-timing-function: step-start;
+}
+
+@keyframes finding-game-title-open {
+	0% {
+		width: 177px;
+	}
+	25% {
+		width: 185px;
+	}
+	50% {
+		width: 195px;
+	}
+	100% {
+		width: 205px;
+	}
+}
+
+.finding-images-animation {
+	position: relative;
+	
+	width: 175px;
+	height: 175px;
+}
+
+.finding-images-animation img {
+	position: absolute;
+	width: 70px;
+}
+
+.finding-images-animation-stone {
+	margin-left: -35px;
+
+	animation-name: finding-game-img-animation-stone;
+	animation-duration: 3s;
+	animation-direction: normal;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+
+.finding-images-animation-scissors {
+	margin-left: -35px;
+
+	animation-name: finding-game-img-animation-scissors;
+	animation-duration: 3s;
+	animation-direction: normal;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+
+.finding-images-animation-paper {
+	margin-left: -35px;
+
+	animation-name: finding-game-img-animation-paper;
+	animation-duration: 3s;
+	animation-direction: normal;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+
+@keyframes finding-game-img-animation-stone {
+	0% {
+		top: 0;
+		left: 50%;
+		margin-left: -35px;
+	}
+	33% {
+		left: 100%;
+		top: 100%;
+		margin-top: -35px;
+	}
+	66% {
+		left: 0;
+		margin-left: 0;
+		top: 100%;
+		margin-top: -35px;
+	}
+	100% {
+		top: 0;
+		left: 50%;
+		margin-left: -35px;
+	}
+}
+
+@keyframes finding-game-img-animation-scissors {
+	0% {
+		left: 100%;
+		top: 100%;
+		margin-top: -35px;
+	}
+	33% {
+		left: 0;
+		margin-left: 0;
+		top: 100%;
+		margin-top: -35px;
+	}
+	66% {
+		top: 0;
+		left: 50%;
+		margin-left: -35px;
+	}
+	100% {
+		left: 100%;
+		top: 100%;
+		margin-top: -35px;
+	}
+}
+
+@keyframes finding-game-img-animation-paper {
+	0% {
+		left: 0;
+		margin-left: 0;
+		top: 100%;
+		margin-top: -35px;
+	}
+	33% {
+		top: 0;
+		left: 50%;
+		margin-left: -35px;
+	}
+	66% {
+		left: 100%;
+		top: 100%;
+		margin-top: -35px;
+	}
+	100% {
+		left: 0;
+		margin-left: 0;
+		top: 100%;
+		margin-top: -35px;
+	}
+}
+
+
+/* !!! МЕЖРАУНДОВОЕ ОКНО */
+
+.between-rounds-window {
+	justify-content: start;
+}
+.between-rounds-window > * {
+	margin-top: 100px;
+}
+.between-rounds-window > *:first-child {
+	margin-top: 70px;
+}
+
+.next-round-number {
+	height: 10%;
+
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.current-rounds-score {
+	height: 25%;
+
+	font-size: 40px;
+}
+
+.cheer-up {
+	height: 15%;
+}
+
+.between-rounds-timer {
+	position: absolute !important;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 7%;
+}
+
+
+/* !!! ОКНО РАУНДА */
+
+.round-window {
+	justify-content: start;
+}
+
+.current-round-number {
+	position: absolute !important;
+	top: 0;
+	height: 10%;
+
+	font-weight: bold;
+}
+
+.opponent-statistics {
+	margin-top: 100px;
+	padding: 20px;
+
+	width: 300px;
+	box-sizing: border-box;
+
+	border-radius: 10px;
+
+	background: #ffee6c;
+}
+
+.opponent-statistics-header {
+	font-size: 27px;
+	font-weight: bold;
+}
+
+.opponent-statistics-elements {
+	margin-top: 20px;
+
+	width: 100%;
+}
+
+.opponent-statistics-elements-element {
+	margin-top: 10px;
+
+	width: 100%;
+
+	font-size: 25px;
+
+	background: url(img/dot.png) repeat-x bottom;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.opponent-statistics-elements-element > * {
+	background: #ffee6c;
+}
+
+.round-rounds-score {
+	margin-top: 45px;
+	width: 100%;
+
+	font-size: 23px;
+/*	font-weight: bold;*/
+
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+
+.round-rounds-score > * {
+	padding: 10px;
+	width: 125px;
+
+	box-sizing: border-box;
+	border-radius: 10px;
+
+	background: green;
+}
+
+.round-rounds-score > * > *:first-child {
+	font-weight: bold;
+}
+
+.round-rounds-score > * > *:last-child {
+	margin-top: 10px;
+	font-size: 25px;
+}
+
+.round-rounds-scored-win {
+	background: #c4ff8f;
+}
+
+.round-rounds-scored-lose {
+	background: #ff00008a;
+}
+
+.moves {
+	position: absolute;
+	bottom: 25px;
+
+	height: 20%;
+}
+
+.moves-title {
+	position: absolute;
+	top: -20px;
+
+	width: 100%;
+
+	text-align: center;
+	font-size: 25px;
+	font-weight: bold;
+}
+
+.make-a-move {
+	animation-name: make-a-move;
+	animation-duration: .5s;
+	animation-direction: alternate;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+
+@keyframes make-a-move {
+	100% {
+		font-size: 28px;
+	}
+}
+
+.moves-img {
+	margin-top: 40px;
+	height: 120px;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+
+.moves img {
+	width: 80px;
+	height: 80px;
+}
+
+.move-pick {
+	width: 110px !important;
+	height: 110px !important;
+	transition: .1s;
+}
+
+
+/* !!! ОКНО РЕЗУЛЬТАТОВ РАУНДА */
+
+.round-result-animation {
+	position: relative;
+
+	width: 300px;
+	height: 300px;
+
+	display: none;
+}
+
+.round-result-animation-scissors-cut-paper {
+/*	position: absolute;*/
+	margin-top: 150px;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.round-result-animation-scissors-cut-paper img {
+	width: 100px;
+}
+
+.img-animation-group {
+	position: absolute;
+}
+
+.opponent-hand, .your-hand {
+	width: 80%;
+/*	height: 40%;*/
+}
+
+.opponent-hand {
+	transform: rotate(180deg);
+}
+
+.round-result {
+	padding: 10%;
+	box-sizing: border-box;
+
+	font-size: 40px;
+	font-weight: bolder;
+	letter-spacing: 5px;
+}
+.round-result-win {
+	color: green;
+}
+.round-result-lose {
+	color: red;
+}
+.round-result-none {
+	color: rgb(70, 70, 70);
+}
+
+
+/* !!! ОКНО РЕЗУЛЬТАТА ИГРЫ */
+
+.game-result-window {
+	justify-content: start;
+}
+
+.game-result {
+	margin-top: 50px;
+	height: 15%;
+
+	font-weight: bold;
+}
+
+.game-result-result {
+	font-size: 50px;
+}
+.game-result-score {
+	font-size: 30px;
+}
+.game-result-result, .game-result-score {
+	letter-spacing: 5px;
+}
+
+.game-result-additional {
+	margin-top: 65px;
+
+	font-size: 25px;
+	font-weight: bold;
+	opacity: .7;
+}
+
+.game-result-to-game {
+	margin-top: 30px;
+}
+
+.game-result-to-game .start-game {
+	padding-bottom: 0;
+
+	font-size: 35px;
+}
+
+.from-game-to-main-window {
+	padding: 5%;
+}
+
+/* !!! УКАЗАНИЕ АВТОРСТВА */
+
+.hrefs {
+	height: 50%;
+}
+
+
+/* !!! COMMON */
+
+.radio-button {
+	width: 55px;
+	height: 55px;
+
+	border-radius: 5px;
+
+	background: rgba(0,0,0,.1);
+}
+/*.radio-button:active {
+	background: rgba(0,0,255,.5);
+}*/
+.radio-button-active {
+	background: rgba(0,0,255,.4);
+	transition: .2s;
+}
+
+.row-timer {
+	position: relative;
+
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.row-timer-timer {
+	font-size: 25px;
+	font-weight: bold;
+}
+.row-timer-view {
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	width: 80%;
+	height: 100%;
+
+	background: rgb(49 72 255 / 32%);;
+}
