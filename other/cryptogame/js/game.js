@@ -442,7 +442,7 @@ window.addEventListener("load", () => {
 
 	USER_ID = String(tg.initDataUnsafe.user.id);
 
-	alert("user_id = ", USER_ID);
+	alert(tg.initData);
 	
 	SOCKET = newSocket();
 });
