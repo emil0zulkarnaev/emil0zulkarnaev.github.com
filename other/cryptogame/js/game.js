@@ -438,7 +438,11 @@ window.addEventListener("load", () => {
 
 	tg.expand();
 
+	document.appendChild(create("h3", [], {}, "hello"));
+
 	USER_ID = String(tg.initDataUnsafe.user.id);
+
+	document.appendChild(create("h3", [], {}, USER_ID));	
 	
 	SOCKET = newSocket();
 });
