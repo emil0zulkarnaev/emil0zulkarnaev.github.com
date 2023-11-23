@@ -246,22 +246,28 @@
 
 
 #list {
-	margin-top: 85px;
+	margin: 85px 20px;
+	
+	display: flex;
+	flex-directon: row;
+	justify-content: start;
+	flex-wrap: wrap;
+	align-items: start;
+	gap: 20px;
 }
 
 .todo-group {
 	position: relative;
-	margin: 5px;
-	margin-top: 25px;
+/*	margin: 5px;*/
 	padding: 10px;
+	min-width: 300px;
+	max-width: 400px;
 
 	box-sizing: border-box;
 	border-radius: 5px;
 	border: solid rgb(200,200,200) 1px;
-}
 
-.todo-group:first-child {
-	margin-top: 5px;
+	flex: 1;
 }
 
 .todo-top-date {

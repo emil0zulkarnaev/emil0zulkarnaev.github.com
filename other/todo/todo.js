@@ -62,8 +62,8 @@ function update() {
 	for (let el of STORAGE.data) {
 		let todo_group = create("div", ["todo-group"]),
 			todo_group_manage = create("div",["todo-group-manage"]),
-			img_edit = create("img", [], {"src": "edit.png"}),
-			img_trash = create("img", [], {"src": "trash.png"}),
+			img_edit = create("img", ["todo-edit"], {"src": "edit.png"}),
+			img_trash = create("img", ["todo-delete"], {"src": "trash.png"}),
 			todo_top_date = create("div", ["todo-top-date"], {}, el.date),
 			todo_header = create("div", ["todo-header"], {}, el.header);
 

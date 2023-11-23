@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		.container {
+  display: flex;
+  flex-flow: column wrap;
+  align-content: space-between;
+  /* Your container needs a fixed height, and it 
+   * needs to be taller than your tallest column. */
+  height: 600px; 
+}
+
+.item {
+  width: 32%;
+  margin-bottom: 2%; /* Optional */
+}
+
+/* Re-order items into 3 rows */
+.item:nth-child(3n+1) { order: 1; }
+.item:nth-child(3n+2) { order: 2; }
+.item:nth-child(3n)   { order: 3; }
+
+/* Force new columns */
+.container::before,
+.container::after {
+  content: "";
+  flex-basis: 100%;
+  width: 0;
+  order: 2;
+}
+
+		.item {
+			width: 400px;
+			height: 200px;
+
+			background: red;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="item">some 1</div>
+		<div class="item">some 2</div>
+		<div class="item">some 3</div>
+		<div class="item">some 4</div>
+		<div class="item">some 5</div>
+		<div class="item">some 6</div>
+		<div class="item">some 7</div>
+		<div class="item">some 8</div>
+		<div class="item">some 9</div>
+		<div class="item">some 10</div>
+	</div>
+</body>
+</html>
